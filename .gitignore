@@ -42,6 +42,17 @@ version/
 *.dll
 
 # Fortran module files
+*.address
+*.address.txt
+mark
+bank
+mine
+mined
+*.keys
+genesistx.txt
+genesis.txt
+genesis.*
+genesistx.*
 *.mod
 
 # Compiled Static libraries
