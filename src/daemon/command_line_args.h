@@ -34,7 +34,7 @@
 
 namespace daemon_args
 {
-  std::string const WINDOWS_SERVICE_NAME = "Monero Daemon";
+  std::string const WINDOWS_SERVICE_NAME = "Goldero Daemon";
 
   const command_line::arg_descriptor<std::string> arg_config_file = {
     "config-file"
@@ -50,6 +50,10 @@ namespace daemon_args
     "max-log-file-size"
   , "Specify maximum log file size [B]"
   , MAX_LOG_FILE_SIZE
+  };
+  const command_line::arg_descriptor<bool>        arg_print_genesis_tx = { 
+    "print-genesis-tx", 
+    "Prints genesis' block tx hex to insert it to config and exits" 
   };
   const command_line::arg_descriptor<std::string> arg_log_level = {
     "log-level"

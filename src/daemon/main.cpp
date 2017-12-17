@@ -95,7 +95,8 @@ int main(int argc, char const * argv[])
 
       daemonizer::init_options(hidden_options, visible_options);
       daemonize::t_executor::init_options(core_settings);
-
+      // Genesis
+      command_line::add_arg(core_settings, command_line::arg_print_genesis_tx);
       // Hidden options
       command_line::add_arg(hidden_options, daemon_args::arg_command);
 
@@ -120,6 +121,23 @@ int main(int argc, char const * argv[])
       return true;
     });
     if (!ok) return 1;
+    // Print Genesis Tx 
+void print_genesis_tx_hex() {
+      Logging::ConsoleLogger logger;
+      CryptoNote::Transaction tx = CryptoNote::CurrencyBuilder(logger).generateGenesisTransaction();
+      CryptoNote::BinaryArray txb = CryptoNote::toBinaryArray(tx);
+      std::string tx_hex = Common::toHex(txb);
+
+      std::cout << "Insert this line into your coin configuration file as is: " << std::endl;
+      std::cout << "const char GENESIS_COINBASE_TX_HEX[] = \"" << tx_hex << "\";" << std::endl;
+
+      return;
+}
+    // Print Genesis Tx 
+    if (command_line::get_arg(vm, command_line::arg_print_genesis_tx)) {
+        print_genesis_tx_hex();
+        return false;
+      }
 
     if (command_line::get_arg(vm, command_line::arg_help))
     {
