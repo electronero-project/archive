@@ -119,7 +119,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                         "goldero"
+#define CRYPTONOTE_NAME                         "mynt"
 #define CRYPTONOTE_POOLDATA_FILENAME            "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME      "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME "lock.mdb"
@@ -149,13 +149,13 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 1078; // addresses start with "XS";
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 19;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 18090;
-  uint16_t const RPC_DEFAULT_PORT = 18091;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 18092;
+  uint16_t const P2P_DEFAULT_PORT = 21090;
+  uint16_t const RPC_DEFAULT_PORT = 21091;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 21092;
   boost::uuids::uuid const NETWORK_ID = { {
       0x3d, 0x8, 0x14, 0x4f , 0xe3, 0x49 , 0x19, 0x2b, 0x31, 0x8, 0x2b, 0x31, 0x8, 0x8, 0x19, 0xe3
     } }; // Bender's nightmare
-  std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101465fe22ec785363d26574087d8be3f8aa3aad34da8172bce368e679b41b7a45e";
+  std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd088071210167caed27097299f5d5e2a06d21dbc4b9822ba60eeec1bba1afda06d968e411ab";
   uint32_t const GENESIS_NONCE = 10000;
 
   namespace testnet
