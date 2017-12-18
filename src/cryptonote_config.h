@@ -153,9 +153,9 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 21091;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 21092;
   boost::uuids::uuid const NETWORK_ID = { {
-      0x3d, 0x8, 0x14, 0x4f , 0xe3, 0x49 , 0x19, 0x2b, 0x31, 0x8, 0x2b, 0x31, 0x8, 0x8, 0x19, 0xe3
+      0x3d, 0x8, 0x19, 0x4f, 0xe3, 0x49, 0x14, 0x2b, 0x31, 0x8, 0x2b, 0x31, 0x8, 0x8, 0x19, 0xe3
     } }; // Bender's nightmare
-  std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd088071210167caed27097299f5d5e2a06d21dbc4b9822ba60eeec1bba1afda06d968e411ab";
+  std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101aeb7ecbf27e0d33ceb6fe1a91caa36a395cd503d2c1c2dade9d6238d53b81d54";
   uint32_t const GENESIS_NONCE = 10000;
 
   namespace testnet
