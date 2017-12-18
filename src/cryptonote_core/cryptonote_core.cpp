@@ -1348,7 +1348,7 @@ namespace cryptonote
     {
       std::string main_message;
       if (m_offline)
-        main_message = "The daemon is running offline and will not attempt to sync to the Monero network.";
+        main_message = "The daemon is running offline and will not attempt to sync to the Goldero network.";
       else
         main_message = "The daemon will start synchronizing with the network. This may take a long time to complete.";
       MGINFO_YELLOW(ENDL << "**********************************************************************" << ENDL
@@ -1406,7 +1406,7 @@ namespace cryptonote
   //-----------------------------------------------------------------------------------------------
   bool core::check_updates()
   {
-    static const char software[] = "monero";
+    static const char software[] = "goldero";
 #ifdef BUILD_TAG
     static const char buildtag[] = BOOST_PP_STRINGIZE(BUILD_TAG);
     static const char subdir[] = "cli"; // because it can never be simple
@@ -1430,7 +1430,7 @@ namespace cryptonote
       return true;
 
     std::string url = tools::get_update_url(software, subdir, buildtag, version, true);
-    MCLOG_CYAN(el::Level::Info, "global", "Version " << version << " of " << software << " for " << buildtag << " is available: " << url << ", SHA256 hash " << hash);
+    MCLOG_CYAN(el::Level::Info, "global", "Version " << version << " of " << software << " for " << buildtag << " is available: " << "on our website");
 
     if (check_updates_level == UPDATES_NOTIFY)
       return true;
