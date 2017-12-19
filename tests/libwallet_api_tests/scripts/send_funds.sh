@@ -4,8 +4,8 @@ function send_funds {
     local amount=$1
     local dest=$(cat "$2.address.txt")
 
-    goldero-wallet-cli --wallet-file wallet_m --password "" \
-        --testnet --trusted-daemon --daemon-address localhost:38091  --log-file wallet_m.log \
+    mynt-wallet-cli --wallet-file wallet_m --password "" \
+        --testnet --trusted-daemon --daemon-address localhost:21090  --log-file wallet_m.log \
         --command transfer $dest $amount 
 }
 
