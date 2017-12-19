@@ -85,6 +85,7 @@ install_manifest.txt
 .metadata
 .gradle
 tmp/
+bin/
 *.tmp
 *.bak
 *.swp
