@@ -84,7 +84,6 @@ install_manifest.txt
 *.pydevproject
 .metadata
 .gradle
-bin/
 tmp/
 *.tmp
 *.bak
