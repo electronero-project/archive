@@ -416,19 +416,19 @@ namespace nodetool
     }
     else
     {
-      full_addrs.insert("165.227.189.226:23090");
-      full_addrs.insert("46.101.40.29:23090");
-      // full_addrs.insert("104.236.190.141:22090");
-      // full_addrs.insert("45.55.13.138:22090");
+      full_addrs.insert("104.236.175.63:23090");
+      full_addrs.insert("46.101.76.70:23090");
+      full_addrs.insert("159.203.28.200:23090");
+      full_addrs.insert("128.199.85.61:23090");
     }
     return full_addrs;
   }
-      // full_addrs.insert("5.9.100.248:18080");
-      // full_addrs.insert("163.172.182.165:18080");
-      // full_addrs.insert("161.67.132.39:18080");
-      // full_addrs.insert("198.74.231.92:18080");
-      // full_addrs.insert("195.154.123.123:28080");
-      // full_addrs.insert("212.83.172.165:28080");
+  // full_addrs.insert("5.9.100.248:18080");
+  // full_addrs.insert("163.172.182.165:18080");
+  // full_addrs.insert("161.67.132.39:18080");
+  // full_addrs.insert("198.74.231.92:18080");
+  // full_addrs.insert("195.154.123.123:28080");
+  // full_addrs.insert("212.83.172.165:28080");
   //-----------------------------------------------------------------------------------
   template<class t_payload_net_handler>
   bool node_server<t_payload_net_handler>::init(const boost::program_options::variables_map& vm)
