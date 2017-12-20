@@ -1,6 +1,3 @@
 [submodule "utils/blockchainutils"]
 	path = utils/blockchainutils
 	url = ../blockchainutils/
-[submodule "wallets-mynt"]
-	path = wallets-mynt
-	url = ../wallets-mynt/
