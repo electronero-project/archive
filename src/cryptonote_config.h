@@ -149,13 +149,13 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 1078; // addresses start with "XS";
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 19;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 21090;
-  uint16_t const RPC_DEFAULT_PORT = 21091;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 21092;
+  uint16_t const P2P_DEFAULT_PORT = 22090;
+  uint16_t const RPC_DEFAULT_PORT = 22091;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 22092;
   boost::uuids::uuid const NETWORK_ID = { {
-      0x3d, 0x8, 0x19, 0x4f, 0xe3, 0x49, 0x14, 0x2b, 0x31, 0x8, 0x2b, 0x31, 0x8, 0x8, 0x19, 0xe3
-    } }; // Bender's nightmare
-  std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101aeb7ecbf27e0d33ceb6fe1a91caa36a395cd503d2c1c2dade9d6238d53b81d54";
+      0x12 ,0x30, 0xF1, 0x71 , 0x61, 0x04 , 0x41, 0x61, 0x17, 0x31, 0x00, 0x82, 0x16, 0xA1, 0xA1, 0x10
+    } }; // Bytecoin network, new genesis
+  std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101ac01bf574289abf6273e6fb4c71d69c4eaa170cb664aeee7b7938737092d148e";
   uint32_t const GENESIS_NONCE = 10000;
 
   namespace testnet
@@ -167,8 +167,9 @@ namespace config
     uint16_t const RPC_DEFAULT_PORT = 28081;
     uint16_t const ZMQ_RPC_DEFAULT_PORT = 28082;
     boost::uuids::uuid const NETWORK_ID = { {
-        0x12 ,0x30, 0xF1, 0x71 , 0x61, 0x04 , 0x41, 0x61, 0x17, 0x31, 0x00, 0x82, 0x16, 0xA1, 0xA1, 0x11
+        0x3d, 0x19, 0x8, 0x49 , 0x4f, 0xe3 , 0x14, 0x2b, 0x31, 0xe2, 0x41, 0x11, 0x2c, 0x10, 0x21, 0x19
       } }; // Bender's daydream
+  std::string const GENESIS_TX = "";
     std::string const GENESIS_TX = "013c01ff0001ffffffffffff0f029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101168d0c4ca86fb55a4cf6a36d31431be1c53a3bd7411bb24e8832410289fa6f3b";
     uint32_t const GENESIS_NONCE = 10001;
   }
