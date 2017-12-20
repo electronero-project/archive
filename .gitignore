@@ -48,7 +48,6 @@ mark
 bank
 mine
 mined
-*.keys
 genesistx.txt
 genesis.txt
 genesis.*
