@@ -1,0 +1,33 @@
+San Fransisco
+(seed01)
+ssh -T root@104.236.175.63
+
+London
+(seed02)
+ssh -T root@46.101.76.70
+(monero)
+46.101.40.20 has monero
+
+Toronto
+(seed03)
+ssh -T root@159.203.28.200
+
+Singapore
+(seed04)
+ssh -T root@128.199.85.61
+
+
+Dependancies
+apt-get install build-essential cmake pkg-config libboost-all-dev libssl-dev libzmq3-dev libunbound-dev libminiupnpc-dev libunwind8-dev liblzma-dev libreadline6-dev libldns-dev libexpat1-dev libgtest-dev doxygen graphviz
+
+[^] On Debian/Ubuntu libgtest-dev only includes sources and headers. You must build the library binary manually. This can be done with the following command 
+sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake . && sudo make 
+Then, copy or move compiled library binaries to usr/lib/ 
+sudo mv libg* /usr/lib/
+or 
+sudo cp libgtest* /usr/lib/ 
+cd ..
+sudo rm -rf build
+(Since I was in usr folder for me it was sudo cp libgtest* ../../lib/)
+
+
