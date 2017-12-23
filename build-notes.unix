@@ -1,18 +1,22 @@
-San Fransisco
+San Fransisco 104
 (seed01)
 ssh -T root@104.236.175.63
 
-London
+(pool & miner)
+ssh root@165.227.189.226
+
+London 46
 (seed02)
 ssh -T root@46.101.76.70
-(monero)
-46.101.40.20 has monero
 
-Toronto
+(monero)
+46.101.40.20
+
+Toronto 159
 (seed03)
 ssh -T root@159.203.28.200
 
-Singapore
+Singapore 128
 (seed04)
 ssh -T root@128.199.85.61
 
@@ -30,4 +34,28 @@ cd ..
 sudo rm -rf build
 (Since I was in usr folder for me it was sudo cp libgtest* ../../lib/)
 
+── src
+Checkpoints
+May need localhost support for this update, use git if needed.
+1. On seed node...Export the Blockchain and Save As "checkpoints.dat" or run command cp .mynt/export/blockchain.raw ../mynt/src/blocks/checkpoints.dat
+2. Hard code checkpoints in mynt/src/checkpoints/checkpoints.cpp
+3. Then, take the sha256 of the checkpoints.dat and update blockchain.cpp line 4342 expected_block_hashes_hash[] = "sha256 of checkpoints.dat"
+SHA256 Tools: https://md5file.com/calculator
+Looked into NPM crypto-js, still reserved about it for now.
+
+Get an idea of the updates needed in the folder strcuture below:
+Checkpoints & Soft Updates: 
+root
+├── src
+│   └── blocks ── (make sure it's a clone of blockchain.raw)
+│   │   ├──└── checkpoints.dat     
+│   │   │   
+│   ├── checkpoints ── (update lines 152+) 
+│   │   ├──└── checkpoints.cpp
+│   │   │	   
+│   ├── cryptonote_core ── (update line 4342 with SHA256 of checkpoints.dat) 
+│   │   │  └── blockchain.cpp
+│   │   │	        
+│   └── cryptonote_config.h (core)
+└── MakeFile (core)
 
