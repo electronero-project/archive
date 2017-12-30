@@ -90,22 +90,22 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 1, 0, 1513821256 },
 
-  // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  { 2, 1009827, 0, 1442763710 },
+  // version 2 starts from block 1009827, which is on or around the 20th of January, 2018. No fork voting occurs for the v2 fork.
+  { 2, 1009827, 0, 1615206966 },
 
-  // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  { 3, 1141317, 0, 1458558528 },
+  // version 3 starts from block 1141317, which is on or around the 24th of April, 2018. Fork time finalised on 2018-xx-xx.
+  // { 3, 1141317, 0, 1631001784 },
   
-  // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  { 4, 1220516, 0, 1483574400 },
+  // version 4 starts from block 1220516, which is on or around the 5th of July, 2018. Fork time finalised on 2018-xx-xx.
+  // { 4, 1220516, 0, 1656017656 },
   
-  // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  { 5, 1288616, 0, 1489520158 },  
+  // version 5 starts from block 1288616, which is on or around the 15th of October, 2018. Fork time finalised on 2018-xx-xx.
+  // { 5, 1288616, 0, 1495465916 },  
 
-  // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  { 6, 1400000, 0, 1503046577 },
+  // version 6 starts from block 1400000, which is on or around the 16th of December, 2018. Fork time finalised on 2018-xx-xx.
+  // { 6, 1400000, 0, 1508992335 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
 
@@ -395,7 +395,7 @@ bool Blockchain::init(BlockchainDB* db, const bool testnet, bool offline, const 
 
   // genesis block has no timestamp, could probably change it to have timestamp of 1341378000...
   if(!top_block_timestamp)
-    timestamp_diff = time(NULL) - 1341378000;
+    timestamp_diff = time(NULL) - 1513821256;
 
   // create general purpose async service queue
 
@@ -4339,7 +4339,7 @@ void Blockchain::cancel()
 }
 
 #if defined(PER_BLOCK_CHECKPOINT)
-static const char expected_block_hashes_hash[] = "2bc8fb5637395dd5b3b4ff742f7d894313c0d0fbdd8bd958e5c98fef6c411034";
+static const char expected_block_hashes_hash[] = "fc58636e8d76566ef5b7621f847f7f6d59b5c074f0a5a2f2420441f1cc718d39";
 void Blockchain::load_compiled_in_block_hashes()
 {
   if (m_fast_sync && get_blocks_dat_start(m_testnet) != nullptr && get_blocks_dat_size(m_testnet) > 0)
