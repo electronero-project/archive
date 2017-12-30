@@ -1,4 +1,5 @@
-// Copyright (c) 2017, The Monero Project
+// Copyright (c) 2017, The Mynt Project
+// Portions Copyright (c) 2017, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -43,12 +44,12 @@ namespace tools
 
     MDEBUG("Checking updates for " << buildtag << " " << software);
 
-    // All four MoneroPulse domains have DNSSEC on and valid
+    // All four MyntPulse domains have DNSSEC on and valid
     static const std::vector<std::string> dns_urls = {
-        "updates.moneropulse.org",
-        "updates.moneropulse.net",
-        "updates.moneropulse.co",
-        "updates.moneropulse.se"
+        "updates.myntpulse.org",
+        "updates.myntpulse.net",
+        "updates.myntpulse.info",
+        "updates.myntpulse.com"
     };
 
     if (!tools::dns_utils::load_txt_records_from_dns(records, dns_urls))
