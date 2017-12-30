@@ -6,9 +6,9 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 ## Development resources
 
-- Web: [getmynt.org](https://getmynt.org)
+- Web: [getmynt.org](https://getmynt.org)...coming soon
 - Forum: [social.getmynt.org](https://social.getmynt.org)...coming soon
-- Mail: [dev@getmynt.org](mailto:dev@getmynt.org)
+- Mail: [dev@getmynt.org](mailto:dev@getmynt.org)...coming soon
 - GitHub: [https://github.com/AltcoinCoop/mynt](https://github.com/AltcoinCoop/mynt)
 - IRC: [#mynt-dev on Freenode](http://webchat.freenode.net/?randomnick=1&channels=%23mynt-dev&prompt=1&uio=d4)
 
