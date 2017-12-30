@@ -68,8 +68,8 @@ The Bitcoin donation address is: `1KTexdemPdxSBcG55heUuTjDRYqbC5ZL8H`
 
 Core development funding and/or some supporting services are also graciously provided by sponsors:
 
-[<img width="80" src="https://static.getmynt.org/images/sponsors/mymynt.png"/>](https://mymynt.com)
-[<img width="150" src="https://static.getmynt.org/images/sponsors/kitware.png?1"/>](http://kitware.com)
+[<img width="80" src="https://static.getmonero.org/images/sponsors/mymynt.png"/>](https://mymynt.com)
+[<img width="150" src="https://static.getmonero.org/images/sponsors/kitware.png?1"/>](http://kitware.com)
 
 
 There are also several mining pools that kindly donate a portion of their fees, [a list of them can be found on our Bitcointalk post](https://bitcointalk.org/index.php?topic=583449.0).
