@@ -1,3 +1,4 @@
+// Copyright (c) 2017-2018, The Mynt Project
 // Copyright (c) 2014-2017, The Monero Project
 //
 // All rights reserved.
@@ -99,7 +100,7 @@ int main(int argc, char* argv[])
 
   if (command_line::get_arg(vm, command_line::arg_help))
   {
-    std::cout << "Monero '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")" << ENDL << ENDL;
+    std::cout << "Mynt '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")" << ENDL << ENDL;
     std::cout << desc_options << std::endl;
     return 1;
   }
