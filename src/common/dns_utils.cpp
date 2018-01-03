@@ -1,3 +1,4 @@
+// Copyright (c) 2017-2018, The Mynt Project
 // Copyright (c) 2014-2017, The Monero Project
 //
 // All rights reserved.
@@ -85,7 +86,7 @@ get_builtin_cert(void)
 		;
 }
 */
-
+//. IN DS 2371 13 2 ae50acb0a00992b74828719cf9751255a775053b866be4d31f4b3a8d28397e08
 /** return the built in root DS trust anchor */
 static const char*
 get_builtin_ds(void)
@@ -334,7 +335,7 @@ namespace dns_utils
 std::string address_from_txt_record(const std::string& s)
 {
   // make sure the txt record has "oa1:xmr" and find it
-  auto pos = s.find("oa1:xmr");
+  auto pos = s.find("oa1:xsm");
   if (pos == std::string::npos)
     return {};
   // search from there to find "recipient_address="
@@ -359,18 +360,18 @@ std::string address_from_txt_record(const std::string& s)
   return {};
 }
 /**
- * @brief gets a monero address from the TXT record of a DNS entry
+ * @brief gets a mynt address from the TXT record of a DNS entry
  *
- * gets the monero address from the TXT record of the DNS entry associated
+ * gets the mynt address from the TXT record of the DNS entry associated
  * with <url>.  If this lookup fails, or the TXT record does not contain an
- * XMR address in the correct format, returns an empty string.  <dnssec_valid>
+ * XSM address in the correct format, returns an empty string.  <dnssec_valid>
  * will be set true or false according to whether or not the DNS query passes
  * DNSSEC validation.
  *
  * @param url the url to look up
  * @param dnssec_valid return-by-reference for DNSSEC status of query
  *
- * @return a monero address (as a string) or an empty string
+ * @return a mynt address (as a string) or an empty string
  */
 std::vector<std::string> addresses_from_url(const std::string& url, bool& dnssec_valid)
 {
@@ -387,7 +388,7 @@ std::vector<std::string> addresses_from_url(const std::string& url, bool& dnssec
   }
   else dnssec_valid = false;
 
-  // for each txt record, try to find a monero address in it.
+  // for each txt record, try to find a mynt address in it.
   for (auto& rec : records)
   {
     std::string addr = address_from_txt_record(rec);
@@ -494,7 +495,7 @@ bool load_txt_records_from_dns(std::vector<std::string> &good_records, const std
 
   if (num_valid_records < 2)
   {
-    LOG_PRINT_L0("WARNING: no two valid MoneroPulse DNS checkpoint records were received");
+    LOG_PRINT_L0("WARNING: no two valid MyntPulse DNS checkpoint records were received");
     return false;
   }
 
@@ -516,7 +517,7 @@ bool load_txt_records_from_dns(std::vector<std::string> &good_records, const std
 
   if (good_records_index < 0)
   {
-    LOG_PRINT_L0("WARNING: no two MoneroPulse DNS checkpoint records matched");
+    LOG_PRINT_L0("WARNING: no two MyntPulse DNS checkpoint records matched");
     return false;
   }
 
