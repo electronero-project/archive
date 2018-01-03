@@ -1,3 +1,4 @@
+# Copyright (c) 2017-2018, The Mynt Project
 # Copyright (c) 2014-2017, The Monero Project
 # 
 # All rights reserved.
@@ -73,8 +74,8 @@ file(COPY
   data/wallet_9svHk1.keys
   data/wallet_9svHk1
   data/outputs
-  data/unsigned_monero_tx
-  data/signed_monero_tx
+  data/unsigned_mynt_tx
+  data/signed_mynt_tx
   DESTINATION data)
 
 add_subdirectory(core_tests)
