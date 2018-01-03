@@ -1,3 +1,4 @@
+// Copyright (c) 2017-2018, The Mynt Project
 // Copyright (c) 2014-2017, The Monero Project
 // 
 // All rights reserved.
@@ -43,13 +44,13 @@ TEST(DNSResolver, IPv4Success)
 
   ASSERT_EQ(1, ips.size());
 
-  //ASSERT_STREQ("93.184.216.119", ips[0].c_str());
+
 
   ips = tools::DNSResolver::instance().get_ipv4("example.com", avail, valid);
 
   ASSERT_EQ(1, ips.size());
 
-  //ASSERT_STREQ("93.184.216.119", ips[0].c_str());
+
 }
 
 TEST(DNSResolver, IPv4Failure)
@@ -78,7 +79,7 @@ TEST(DNSResolver, DNSSECSuccess)
 
   ASSERT_EQ(1, ips.size());
 
-  //ASSERT_STREQ("93.184.216.119", ips[0].c_str());
+
 
   ASSERT_TRUE(avail);
   ASSERT_TRUE(valid);
@@ -94,31 +95,12 @@ TEST(DNSResolver, DNSSECFailure)
 
   ASSERT_EQ(1, ips.size());
 
-  //ASSERT_STREQ("93.184.216.119", ips[0].c_str());
+ 
 
   ASSERT_TRUE(avail);
   ASSERT_FALSE(valid);
 }
 
-// It would be great to include an IPv6 test and assume it'll pass, but not every ISP / resolver plays nicely with IPv6;)
-/*TEST(DNSResolver, IPv6Success)
-{
-  tools::DNSResolver resolver = tools::DNSResolver::create();
-
-  bool avail, valid;
-
-  auto ips = resolver.get_ipv6("example.com", avail, valid);
-
-  ASSERT_EQ(1, ips.size());
-
-  ASSERT_STREQ("2606:2800:220:6d:26bf:1447:1097:aa7", ips[0].c_str());
-
-  ips = tools::DNSResolver::instance().get_ipv6("example.com", avail, valid);
-
-  ASSERT_EQ(1, ips.size());
-
-  ASSERT_STREQ("2606:2800:220:6d:26bf:1447:1097:aa7", ips[0].c_str());
-}*/
 
 TEST(DNSResolver, IPv6Failure)
 {
@@ -140,22 +122,22 @@ TEST(DNSResolver, GetTXTRecord)
 {
   bool avail, valid;
 
-  std::vector<std::string> records = tools::DNSResolver::instance().get_txt_record("donate.getmonero.org", avail, valid);
+  std::vector<std::string> records = tools::DNSResolver::instance().get_txt_record("donate.myntnote.org", avail, valid);
 
   EXPECT_NE(0, records.size());
 
   for (auto& rec : records)
   {
-    std::cout << "TXT record for donate.getmonero.org: " << rec << std::endl;
+    std::cout << "TXT record for donate.myntnote.org: " << rec << std::endl;
   }
 
   // replace first @ with .
-  std::string addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate@getmonero.org");
-  EXPECT_STREQ("donate.getmonero.org", addr.c_str());
+  std::string addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate@myntnote.org");
+  EXPECT_STREQ("donate.myntnote.org", addr.c_str());
 
   // no change
-  addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate.getmonero.org");
-  EXPECT_STREQ("donate.getmonero.org", addr.c_str());
+  addr = tools::DNSResolver::instance().get_dns_format_from_oa_address("donate.myntnote.org");
+  EXPECT_STREQ("donate.myntnote.org", addr.c_str());
 }
 
 TEST(DNS_PUBLIC, empty) { EXPECT_STREQ("", tools::dns_utils::parse_dns_public("").c_str()); }
