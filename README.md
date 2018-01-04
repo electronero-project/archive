@@ -93,10 +93,10 @@ Dates are provided in the format YYYY-MM-DD.
 | Software upgrade block height | Date       | Fork version | Minimum Mynt version | Recommended Mynt version | Details                                                                            |  
 | ------------------------------ | -----------| ----------------- | ---------------------- | -------------------------- | ---------------------------------------------------------------------------------- |
 | 1009827                        | 2018-03-01 | v2                | v0.9.4                 | v0.9.4                     | Allow only >= ringsize 3, blocktime = 120 seconds, fee-free blocksize 60 kb       |
-| 1009828                        | 2018-03-01 | v3                | v0.9.4                 | v0.10.0                    | Splits coinbase into denominations  |
-| 1009829                        | 2018-03-01 | v4                | v0.10.1                | v0.10.2.1                  | Allow normal and RingCT transactions |
-| 1009830                        | 2018-03-01 | v5                | v0.10.3.0              | v0.10.3.1                  | Adjusted minimum blocksize and fee algorithm      |
-| 1009831                        | 2018-03-01 | v6                | v0.11.0.0              | v0.11.0.0                  | Allow only RingCT transactions, allow only >= ringsize 5      |
+| XXXXXXX                        | 2018-XX-XX | v3                | v0.9.4                 | v0.10.0                    | Splits coinbase into denominations  |
+| XXXXXXX                        | 2018-XX-XX | v4                | v0.10.1                | v0.10.2.1                  | Allow normal and RingCT transactions |
+| XXXXXXX                        | 2018-XX-XX | v5                | v0.10.3.0              | v0.10.3.1                  | Adjusted minimum blocksize and fee algorithm      |
+| XXXXXXX                        | 2018-XX-XX | v6                | v0.11.0.0              | v0.11.0.0                  | Allow only RingCT transactions, allow only >= ringsize 5      |
 | XXXXXXX                        | 2018-03-XX | XX                | XXXXXXXXX              | XXXXXXXXX                  | XXXXXX
 
 X's indicate that these details have not been determined as of commit date, 2017-01-04. 
