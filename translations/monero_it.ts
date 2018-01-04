@@ -2482,8 +2482,8 @@ Outputs per *: </source>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="110"/>
-        <source>Use daemon instance at port &lt;arg&gt; instead of 18081</source>
-        <translation>Usa istanza daemon alla porta &lt;arg&gt; invece che alla 18081</translation>
+        <source>Use daemon instance at port &lt;arg&gt; instead of 24091</source>
+        <translation>Usa istanza daemon alla porta &lt;arg&gt; invece che alla 24091</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="112"/>
