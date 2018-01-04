@@ -1,4 +1,4 @@
-// Copyright (c) 2017, The Mynt Project
+// Copyright (c) 2017-2018, The Mynt Project
 // Portions Copyright (c) 2014-2017, The Monero Project
 //
 // All rights reserved.
@@ -164,7 +164,8 @@ namespace cryptonote
     ADD_CHECKPOINT(11415, "62e45e4c5236dd547fd156600d4f41aefc8155d6bb98121cbb506b878257b246");
     ADD_CHECKPOINT(12029, "77254e38b4b16e0d65ed7cc9d2a6c2a557b9c1e20a9020c349cb10774bad4696");
     ADD_CHECKPOINT(12386, "7b485d5c82555d73dddbae201486b78fe1b4270ff0e52ac43d755189f6b8726d");
-
+    ADD_CHECKPOINT(19700, "911d7d3d5a8d95eacb9cc2eed1f9edc78d9be2ed2f52f1a096e31d91cb11f9ac");
+	  
     return true;
   }
 
