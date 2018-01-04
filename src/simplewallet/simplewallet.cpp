@@ -2028,12 +2028,14 @@ bool simple_wallet::new_wallet(const boost::program_options::variables_map& vm,
   success_msg_writer() <<
     "**********************************************************************\n" <<
     tr("Your wallet has been generated!\n"
-    "To start synchronizing with the daemon, use \"refresh\" command.\n"
+    "To start synchronizing with the mynt daemon, use \"refresh\" command.\n"
     "Use \"help\" command to see the list of available commands.\n"
     "Use \"help <command>\" to see a command's documentation.\n"
-    "Always use \"exit\" command when closing monero-wallet-cli to save your\n"
+    "Always use \"exit\" command when closing mynt-wallet-cli to save your\n"
     "current session's state. Otherwise, you might need to synchronize \n"
-    "your wallet again (your wallet keys are NOT at risk in any case).\n")
+    "your wallet again (your wallet keys are NOT at risk in any case). \n"
+    "If your daemon experiences an \"Alternate Block Found\" while actively mining... Promptly use \"exit <command>\" \n"       
+    "Reboot your daemon with ./myntd and resynchronize the blockchain with the network. \n")
   ;
 
   if (!two_random)
@@ -4146,7 +4148,7 @@ bool simple_wallet::submit_transfer(const std::vector<std::string> &args_)
   try
   {
     std::vector<tools::wallet2::pending_tx> ptx_vector;
-    bool r = m_wallet->load_tx("signed_monero_tx", ptx_vector, [&](const tools::wallet2::signed_tx_set &tx){ return accept_loaded_tx(tx); });
+    bool r = m_wallet->load_tx("signed_mynt_tx", ptx_vector, [&](const tools::wallet2::signed_tx_set &tx){ return accept_loaded_tx(tx); });
     if (!r)
     {
       fail_msg_writer() << tr("Failed to load transaction from file");
@@ -5840,11 +5842,11 @@ int main(int argc, char* argv[])
 
   const auto vm = wallet_args::main(
    argc, argv,
-   "monero-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
+   "mynt-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
     desc_params,
     positional_options,
     [](const std::string &s, bool emphasis){ tools::scoped_message_writer(emphasis ? epee::console_color_white : epee::console_color_default, true) << s; },
-    "monero-wallet-cli.log"
+    "mynt-wallet-cli.log"
   );
 
   if (!vm)
