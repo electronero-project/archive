@@ -1,4 +1,5 @@
-// Copyright (c) 2014-2017, The Monero Project
+// Copyright (c) 2017-2018, The Mynt Project
+// Portions Copyright (c) 2014-2017, The Monero Project
 //
 // All rights reserved.
 //
@@ -95,17 +96,6 @@ static const struct {
   // version 2 starts from block 1009827, which is on or around the 20th of January, 2018. No fork voting occurs for the v2 fork.
   { 2, 1009827, 0, 1615206966 },
 
-  // version 3 starts from block 1141317, which is on or around the 24th of April, 2018. Fork time finalised on 2018-xx-xx.
-  // { 3, 1141317, 0, 1631001784 },
-  
-  // version 4 starts from block 1220516, which is on or around the 5th of July, 2018. Fork time finalised on 2018-xx-xx.
-  // { 4, 1220516, 0, 1656017656 },
-  
-  // version 5 starts from block 1288616, which is on or around the 15th of October, 2018. Fork time finalised on 2018-xx-xx.
-  // { 5, 1288616, 0, 1495465916 },  
-
-  // version 6 starts from block 1400000, which is on or around the 16th of December, 2018. Fork time finalised on 2018-xx-xx.
-  // { 6, 1400000, 0, 1508992335 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
 
@@ -4339,7 +4329,7 @@ void Blockchain::cancel()
 }
 
 #if defined(PER_BLOCK_CHECKPOINT)
-static const char expected_block_hashes_hash[] = "fc58636e8d76566ef5b7621f847f7f6d59b5c074f0a5a2f2420441f1cc718d39";
+static const char expected_block_hashes_hash[] = "7539f929f55126f3611e4da3f0aa7272ce090871e9d944ff366f5feb1ce28a1e";
 void Blockchain::load_compiled_in_block_hashes()
 {
   if (m_fast_sync && get_blocks_dat_start(m_testnet) != nullptr && get_blocks_dat_size(m_testnet) > 0)
