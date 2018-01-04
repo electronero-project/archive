@@ -16,16 +16,16 @@ apps:
         plugs:
             - network
             - network-bind
-    monero-wallet-rpc:
+    mynt-wallet-rpc:
         command: |
-          myntd-wallet-rpc --log-file ${SNAP_USER_DATA}
+          mynt-wallet-rpc --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
             - network-bind
-    monero-wallet-cli:
+    mynt-wallet-cli:
         command: |
-          myntd-wallet-cli --log-file ${SNAP_USER_DATA}
+          mynt-wallet-cli --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
