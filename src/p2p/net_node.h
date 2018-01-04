@@ -1,4 +1,5 @@
-// Copyright (c) 2014-2017, The Monero Project
+// Copyright (c) 2017-2018, The Mynt Project
+// Portions Copyright (c) 2014-2017, The Monero Project
 //
 // All rights reserved.
 //
@@ -131,11 +132,11 @@ namespace nodetool
     virtual std::map<std::string, time_t> get_blocked_hosts() { CRITICAL_REGION_LOCAL(m_blocked_hosts_lock); return m_blocked_hosts; }
   private:
     const std::vector<std::string> m_seed_nodes_list =
-    { "165.227.189.226:21090"
-    , "46.101.40.29:21090"
+    { "seeds.mynt.network"
+    , "seeds.coinmines.network"
+    , "seeds.coinmine.network"
+    , "seeds.myntnote.org"
     };
-    // , "seeds.moneroseeds.ch"
-    // , "seeds.moneroseeds.li"
     bool islimitup=false;
     bool islimitdown=false;
 
