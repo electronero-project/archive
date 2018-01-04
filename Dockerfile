@@ -39,7 +39,7 @@ VOLUME /root/.mynt
 
 # Generate your wallet via accessing the container and run:
 # cd /wallet
-# monero-wallet-cli
+# mynt-wallet-cli
 VOLUME /wallet
 
 EXPOSE 24090
