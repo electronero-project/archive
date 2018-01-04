@@ -1,18 +1,18 @@
 [Unit]
-Description=Monero Full Node
+Description=Mynt Full Node
 After=network.target
 
 [Service]
-User=monero
-Group=monero
+User=mynt
+Group=mynt
 WorkingDirectory=~
-RuntimeDirectory=monero
+RuntimeDirectory=mynt
 
 Type=forking
-PIDFile=/run/monero/golderod.pid
+PIDFile=/run/mynt/myntd.pid
 
-ExecStart=/usr/bin/golderod --config-file /etc/monerod.conf \
-    --detach --pidfile /run/monero/monerod.pid
+ExecStart=/usr/bin/myntd --config-file /etc/myntd.conf \
+    --detach --pidfile /run/mynt/myntd.pid
 
 Restart=always
 PrivateTmp=true
