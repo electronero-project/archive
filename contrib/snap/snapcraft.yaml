@@ -1,6 +1,6 @@
-name: monero
+name: mynt
 version: 0.11.1.0-1
-summary: "Monero: the secure, private, untraceable cryptocurrency https://getmonero.org"
+summary: "Mynt: the secure, private, untraceable cryptocurrency https://getmynt.org"
 description: |
     Monero is a private, secure, untraceable, decentralised digital currency.
     You are your bank, you control your funds, and nobody can trace your transfers
@@ -9,23 +9,23 @@ grade: devel
 confinement: strict
 
 apps:
-    monerod:
+    myntd:
         daemon: forking
         command: |
-          monerod-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/monerod.conf
+          myntd-wrapper --detach --data-dir ${SNAP_COMMON} --config-file ${SNAP_USER_DATA}/etc/myntd.conf
         plugs:
             - network
             - network-bind
     monero-wallet-rpc:
         command: |
-          monero-wallet-rpc --log-file ${SNAP_USER_DATA}
+          myntd-wallet-rpc --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
             - network-bind
     monero-wallet-cli:
         command: |
-          monero-wallet-cli --log-file ${SNAP_USER_DATA}
+          myntd-wallet-cli --log-file ${SNAP_USER_DATA}
         plugs:
             - home
             - network
@@ -72,8 +72,8 @@ parts:
         plugin: dump
         source: .
         organize:
-            contrib/snap/monerod.conf: etc/monerod.conf
-            contrib/snap/monerod-wrapper: bin/monerod-wrapper
+            contrib/snap/myntd.conf: etc/myntd.conf
+            contrib/snap/myntd-wrapper: bin/myntd-wrapper
         prime:
             - etc
             - bin
