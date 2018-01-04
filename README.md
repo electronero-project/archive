@@ -133,10 +133,10 @@ Installing a snap is very quick. Snaps are secure. They are isolated with all of
         docker build -t mynt .
      
         # either run in foreground
-        docker run -it -v /mynt/chain:/root/.bitmynt -v /mynt/wallet:/wallet -p 18080:18080 mynt
+        docker run -it -v /mynt/chain:/root/.mynt -v /mynt/wallet:/wallet -p 24090:24090 mynt
 
         # or in background
-        docker run -it -d -v /mynt/chain:/root/.bitmynt -v /mynt/wallet:/wallet -p 18080:18080 mynt
+        docker run -it -d -v /mynt/chain:/root/.mynt -v /mynt/wallet:/wallet -p 24090:24090 mynt
 
 Packaging for your favorite distribution would be a welcome contribution!
 
@@ -503,7 +503,7 @@ or:
 
 TAILS ships with a very restrictive set of firewall rules. Therefore, you need to add a rule to allow this connection too, in addition to telling torsocks to allow inbound connections. Full example:
 
-`sudo iptables -I OUTPUT 2 -p tcp -d 127.0.0.1 -m tcp --dport 18081 -j ACCEPT`
+`sudo iptables -I OUTPUT 2 -p tcp -d 127.0.0.1 -m tcp --dport 24091 -j ACCEPT`
 
 `DNS_PUBLIC=tcp torsocks ./myntd --p2p-bind-ip 127.0.0.1 --no-igd --rpc-bind-ip 127.0.0.1 --data-dir /home/amnesia/Persistent/your/directory/to/the/blockchain`
 
