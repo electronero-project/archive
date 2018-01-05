@@ -1,3 +1,4 @@
+// Copyright (c) 2017-2018, The Mynt Project
 // Copyright (c) 2014-2017, The Monero Project
 // 
 // All rights reserved.
@@ -34,7 +35,7 @@
 
 namespace daemon_args
 {
-  std::string const WINDOWS_SERVICE_NAME = "Goldero Daemon";
+  std::string const WINDOWS_SERVICE_NAME = "Mynt Daemon";
 
   const command_line::arg_descriptor<std::string> arg_config_file = {
     "config-file"
