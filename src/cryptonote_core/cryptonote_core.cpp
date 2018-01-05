@@ -1348,9 +1348,9 @@ namespace cryptonote
     {
       std::string main_message;
       if (m_offline)
-        main_message = "The daemon is running offline and will not attempt to sync to the Goldero network.";
+        main_message = "The daemon is running offline and will not attempt to sync to the Mynt network.";
       else
-        main_message = "The daemon will start synchronizing with the network. This may take a long time to complete.";
+        main_message = "The daemon will start synchronizing with the Mynt network blockchain. This may take a long time to complete.";
       MGINFO_YELLOW(ENDL << "**********************************************************************" << ENDL
         << main_message << ENDL
         << ENDL
