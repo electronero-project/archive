@@ -1,3 +1,4 @@
+# Copyright (c) 2017-2018, The Mynt Project
 # Copyright (c) 2014-2017, The Monero Project
 #
 # All rights reserved.
@@ -33,7 +34,7 @@ endif()
 
 cmake_minimum_required(VERSION 2.8.7)
 
-project(goldero)
+project(mynt)
 
 function (die msg)
   if (NOT WIN32)
