@@ -35,6 +35,8 @@
 #include "include_base_utils.h"
 #include <random>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/thread.hpp>
 using namespace epee;
 namespace bf = boost::filesystem;
 
@@ -86,7 +88,6 @@ get_builtin_cert(void)
 		;
 }
 */
-//. IN DS 2371 13 2 ae50acb0a00992b74828719cf9751255a775053b866be4d31f4b3a8d28397e08
 /** return the built in root DS trust anchor */
 static const char*
 get_builtin_ds(void)
