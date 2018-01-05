@@ -1,5 +1,5 @@
-// Copyright (c) 2017, The Mynt Project
-// Portions Copyright (c) 2017, The Monero Project
+// Copyright (c) 2017-2018, The Mynt Project
+// Portions Copyright (c) 2014-2017, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -99,7 +99,7 @@ namespace tools
 
   std::string get_update_url(const std::string &software, const std::string &subdir, const std::string &buildtag, const std::string &version, bool user)
   {
-    const char *base = user ? "https://downloads.getmonero.org/" : "http://updates.getmonero.org/";
+    const char *base = user ? "https://downloads.getmynt.org/" : "http://updates.getmynt.org/";
 #ifdef _WIN32
     static const char *extension = strncmp(buildtag.c_str(), "install-", 8) ? ".zip" : ".exe";
 #else
