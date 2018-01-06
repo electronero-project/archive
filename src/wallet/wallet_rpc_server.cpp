@@ -62,7 +62,7 @@ namespace
   const command_line::arg_descriptor<std::string> arg_wallet_dir = {"wallet-dir", "Directory for newly created wallets"};
   const command_line::arg_descriptor<bool> arg_prompt_for_password = {"prompt-for-password", "Prompts for password when not provided", false};
 
-  constexpr const char default_rpc_username[] = "monero";
+  constexpr const char default_rpc_username[] = "mynt";
 
   boost::optional<tools::password_container> password_prompter(const char *prompt, bool verify)
   {
@@ -503,7 +503,7 @@ namespace tools
           }
           if (addresses.empty())
           {
-            er.message = std::string("No Monero address found at ") + url;
+            er.message = std::string("No Mynt address found at ") + url;
             return {};
           }
           return addresses[0];
@@ -1333,7 +1333,7 @@ namespace tools
         }
         if (addresses.empty())
         {
-          er.message = std::string("No Monero address found at ") + url;
+          er.message = std::string("No Mynt address found at ") + url;
           return {};
         }
         return addresses[0];
@@ -1971,7 +1971,7 @@ namespace tools
         }
         if (addresses.empty())
         {
-          er.message = std::string("No Monero address found at ") + url;
+          er.message = std::string("No Mynt address found at ") + url;
           return {};
         }
         return addresses[0];
