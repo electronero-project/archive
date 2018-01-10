@@ -1234,7 +1234,7 @@ bool simple_wallet::set_variable(const std::vector<std::string> &args)
     CHECK_SIMPLE_VARIABLE("priority", set_default_priority, tr("0, 1, 2, 3, or 4"));
     CHECK_SIMPLE_VARIABLE("confirm-missing-payment-id", set_confirm_missing_payment_id, tr("0 or 1"));
     CHECK_SIMPLE_VARIABLE("ask-password", set_ask_password, tr("0 or 1"));
-    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("monero, millimynt, micromynt, nanomynt, picomynt"));
+    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("mynt, millimynt, micromynt, nanomynt, picomynt"));
     CHECK_SIMPLE_VARIABLE("min-outputs-count", set_min_output_count, tr("unsigned integer"));
     CHECK_SIMPLE_VARIABLE("min-outputs-value", set_min_output_value, tr("amount"));
     CHECK_SIMPLE_VARIABLE("merge-destinations", set_merge_destinations, tr("0 or 1"));
