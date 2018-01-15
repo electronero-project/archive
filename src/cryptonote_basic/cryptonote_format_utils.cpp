@@ -830,12 +830,8 @@ namespace cryptonote
   }
   //---------------------------------------------------------------
   bool calculate_block_hash(const block& b, crypto::hash& res)
-  // {
-  //   return get_object_hash(get_block_hashing_blob(b), res);
-  // }
   {
     // EXCEPTION FOR BLOCK 202612 block fix (no longer necessary) has been trimmed below as of 12/30/2017 by Mark Allen Evans
-    crypto::hash block_blob_hash = get_blob_hash(block_to_blob(b));
     bool hash_result = get_object_hash(get_block_hashing_blob(b), res);
     return hash_result;
   }
