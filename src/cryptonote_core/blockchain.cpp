@@ -119,7 +119,7 @@ static const struct {
   { 6, 16, 0, 1518234746 },
   { 7, 20, 0, 1518235746 },
 };
-static const uint64_t testnet_hard_fork_version_1_till = 9999;
+static const uint64_t testnet_hard_fork_version_1_till = 2;
 
 //------------------------------------------------------------------
 Blockchain::Blockchain(tx_memory_pool& tx_pool) :
