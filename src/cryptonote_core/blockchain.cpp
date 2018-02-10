@@ -106,18 +106,18 @@ static const struct {
   time_t time;
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 1, 0, 1518223746 },
 
   // version 2 starts from block 624634, which is on or around the 23rd of November, 2015. Fork time finalised on 2015-11-20. No fork voting occurs for the v2 fork.
-  { 2, 10000, 0, 1445355000 },
+  { 2, 3, 0, 1518226746 },
 
   // versions 3-5 were passed in rapid succession from September 18th, 2016
-  { 3, 11000, 0, 1472415034 },
-  { 4, 15000, 0, 1472415035 },
-  { 5, 25000, 0, 1472415036 + 86400*180 }, // add 5 months on testnet to shut the update warning up since there's a large gap to v6
+  { 3, 6, 0, 1518228746 },
+  { 4, 9, 0, 1518229746 },
+  { 5, 12, 0, 1518233746 }, // add 5 months on testnet to shut the update warning up since there's a large gap to v6
 
-  { 6, 72985, 0, 1518223746 },
-  { 7, 73299, 0, 1518224746 },
+  { 6, 16, 0, 1518234746 },
+  { 7, 20, 0, 1518235746 },
 };
 static const uint64_t testnet_hard_fork_version_1_till = 9999;
 
