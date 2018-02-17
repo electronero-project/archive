@@ -94,10 +94,14 @@ static const struct {
   { 1, 1, 0, 1513821256 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of January, 2018. No fork voting occurs for the v2 fork.
-  { 2, 1009827, 0, 1615206966 },
-
+  { 2, 84000, 0, 1518829708 },
+  // versions 3-5 are to be passed in rapid succession from Febryary 17th, 2018
+  { 3, 84006, 0, 1518829769 },
+  { 4, 84012, 0, 1518829828 },
+  { 5, 84024, 0, 1518829889 },
+  { 6, 84030, 0, 1518829948 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
+static const uint64_t mainnet_hard_fork_version_1_till = 83999;
 
 static const struct {
   uint8_t version;
@@ -108,14 +112,13 @@ static const struct {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1518223746 },
 
-  // version 2 starts from block 624634, which is on or around the 23rd of November, 2015. Fork time finalised on 2015-11-20. No fork voting occurs for the v2 fork.
+  // version 2 starts from block 3, which is on or around the 6th of February, 2018. Fork time finalised on 2018-02-06. No fork voting occurs for the v2 fork.
   { 2, 3, 0, 1518226746 },
 
-  // versions 3-5 were passed in rapid succession from September 18th, 2016
+  // versions 3-7 were passed in rapid succession from February 6th, 2018
   { 3, 6, 0, 1518228746 },
   { 4, 9, 0, 1518229746 },
-  { 5, 12, 0, 1518233746 }, // add 5 months on testnet to shut the update warning up since there's a large gap to v6
-
+  { 5, 12, 0, 1518233746 },
   { 6, 16, 0, 1518234746 },
   { 7, 20, 0, 1518235746 },
 };
