@@ -501,7 +501,7 @@ namespace nodetool
         if (result.size())
         {
           for (const auto& addr_string : result)
-            full_addrs.insert(addr_string + ":3000");
+            full_addrs.insert(addr_string + ":30000");
         }
         ++i;
       }
