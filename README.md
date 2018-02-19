@@ -92,14 +92,14 @@ Dates are provided in the format YYYY-MM-DD.
 
 | Software upgrade block height | Date       | Fork version | Minimum Mynt version | Recommended Mynt version | Details                                                                            |  
 | ------------------------------ | -----------| ----------------- | ---------------------- | -------------------------- | ---------------------------------------------------------------------------------- |
-| 1009827                        | 2018-03-01 | v2                | v0.9.4                 | v0.9.4                     | Allow only >= ringsize 3, blocktime = 120 seconds, fee-free blocksize 60 kb       |
-| XXXXXXX                        | 2018-XX-XX | v3                | v0.9.4                 | v0.10.0                    | Splits coinbase into denominations  |
-| XXXXXXX                        | 2018-XX-XX | v4                | v0.10.1                | v0.10.2.1                  | Allow normal and RingCT transactions |
-| XXXXXXX                        | 2018-XX-XX | v5                | v0.10.3.0              | v0.10.3.1                  | Adjusted minimum blocksize and fee algorithm      |
-| XXXXXXX                        | 2018-XX-XX | v6                | v0.11.0.0              | v0.11.0.0                  | Allow only RingCT transactions, allow only >= ringsize 5      |
-| XXXXXXX                        | 2018-03-XX | XX                | XXXXXXXXX              | XXXXXXXXX                  | XXXXXX
+| 1009827                        | 2018-02-16 | v2                | v0.11.0.0                  | v0.11.0.0                     | Allow only >= ringsize 3, blocktime = 120 seconds, fee-free blocksize 60 kb       |
+| XXXXXXX                        | 2018-02-17 | v3                | v0.11.0.1                  | v0.11.0.1                    | Splits coinbase into denominations  |
+| XXXXXXX                        | 2018-02-17 | v4                | v0.11.0.1                 | v0.11.0.2                  | Allow normal and RingCT transactions |
+| XXXXXXX                        | 2018-02-17 | v5                | v0.11.0.2              | v0.11.0.2                  | Adjusted minimum blocksize and fee algorithm      |
+| XXXXXXX                        | 2018-02-17 | v6                | v0.11.0.2              | v0.11.0.2                  | Allow only RingCT transactions, allow only >= ringsize 5      |
+| XXXXXXX                        | 2018-03-10 | XX                | XXXXXXXXX              | XXXXXXXXX                  | XXXXXX
 
-X's indicate that these details have not been determined as of commit date, 2017-01-04. 
+X's indicate that these details have not been determined as of commit date, 2018-02-18. 
 
 ## Release staging schedule and protocol
 
