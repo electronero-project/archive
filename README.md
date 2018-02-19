@@ -99,7 +99,7 @@ Dates are provided in the format YYYY-MM-DD.
 | 84030                        | 2018-02-17 | v6                | v0.11.0.2              | v0.11.0.2                  | Allow only RingCT transactions, allow only >= ringsize 5      |
 | XXXXXXX                        | 2018-03-10 | XX                | XXXXXXXXX              | XXXXXXXXX                  | XXXXXX
 
-X's indicate that these details have not been determined as of commit date, 2018-02-18. 
+X's indicate that these details have not been determined as of commit date, 2018-02-19. 
 
 ## Release staging schedule and protocol
 
