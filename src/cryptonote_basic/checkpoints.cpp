@@ -180,10 +180,10 @@ namespace cryptonote
     std::vector<std::string> records;
 
     // All four MoneroPulse domains have DNSSEC on and valid
-    static const std::vector<std::string> dns_urls = { "checkpoints.electroneum.com"
+    static const std::vector<std::string> dns_urls = { "checkpoints.kryptoniumpulse.com"
     };
 
-    static const std::vector<std::string> testnet_dns_urls = { "testpoints.electroneum.com"
+    static const std::vector<std::string> testnet_dns_urls = { "testpoints.kryptoniumpulse.com"
     };
 
     if (!tools::dns_utils::load_txt_records_from_dns(records, testnet ? testnet_dns_urls : dns_urls))
