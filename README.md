@@ -142,6 +142,15 @@ Packaging for your favorite distribution would be a welcome contribution!
 
 ## Compiling Mynt from source
 
+### Pre installation 
+```
+git clone https://github.com/AltcoinCoop/Mynt/
+cd Mynt
+git lfs fetch
+git lfs checkout
+git lfs pull
+```
+
 ### Dependencies
 
 The following table summarizes the tools and libraries required to build. A
