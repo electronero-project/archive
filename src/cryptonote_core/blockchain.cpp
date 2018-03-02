@@ -92,14 +92,15 @@ static const struct {
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1513821256 },
-
-  // version 2 starts from block 1009827, which is on or around the 20th of January, 2018. No fork voting occurs for the v2 fork.
-  { 2, 84000, 0, 1518829708 },
-  // versions 3-5 are to be passed in rapid succession from Febryary 17th, 2018
-  { 3, 84006, 0, 1518829769 },
-  { 4, 84012, 0, 1518829828 },
-  { 5, 84024, 0, 1518829889 },
-  { 6, 84030, 0, 1518829948 },
+  // version 2 starts from block 84000, which is on or around the 18th of February, 2018. No fork voting occurs for the v2 fork.
+  { 2, 84000, 0, 1518919414 },
+  // versions 3-6 are to be passed in rapid succession from Febryary 18th, 2018.
+  { 3, 84006, 0, 1518921689 },
+  // versions 4-6 enable ring signatures.
+  { 4, 84012, 0, 1518922948 },
+  { 5, 84024, 0, 1518925063 },
+  // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
+  { 6, 84030, 0, 1518925393 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 83999;
 
@@ -111,10 +112,8 @@ static const struct {
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1518223746 },
-
   // version 2 starts from block 3, which is on or around the 6th of February, 2018. Fork time finalised on 2018-02-06. No fork voting occurs for the v2 fork.
   { 2, 3, 0, 1518226746 },
-
   // versions 3-7 were passed in rapid succession from February 6th, 2018
   { 3, 6, 0, 1518228746 },
   { 4, 9, 0, 1518229746 },
