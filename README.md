@@ -97,7 +97,7 @@ Dates are provided in the format YYYY-MM-DD.
 | 84012                        | 2018-02-17 | v4                | v0.11.0.1                 | v0.11.0.2                  | Allow normal and RingCT transactions |
 | 84024                        | 2018-02-17 | v5                | v0.11.0.2              | v0.11.0.2                  | Adjusted minimum blocksize and fee algorithm      |
 | 84030                        | 2018-02-17 | v6                | v0.11.0.2              | v0.11.0.2                  | Allow only RingCT transactions, allow only >= ringsize 5      |
-| XXXXXXX                        | 2018-03-10 | XX                | XXXXXXXXX              | XXXXXXXXX                  | XXXXXX
+| XXXXXXX                        | 2018-04-15 | XX                | XXXXXXXXX              | XXXXXXXXX                  | XXXXXX
 
 X's indicate that these details have not been determined as of commit date, 2018-02-19. 
 
