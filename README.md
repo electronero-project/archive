@@ -143,6 +143,41 @@ Packaging for your favorite distribution would be a welcome contribution!
 ## Compiling Mynt from source
 
 ### Pre installation 
+#### Install Git LFS 
+On Windows, simply download the release and follow the prompts on https://git-lfs.github.com
+
+#### On Linux 
+```
+sudo apt-get install git-lfs
+```
+If the package is not found, use the instructions provided by Git to install on your machine: 
+https://github.com/git-lfs/git-lfs/blob/master/INSTALLING.md
+Should be brief. See below for excerpt of the process.
+
+packagecloud provides scripts to automate the process of configuring the package repository on your system, importing signing-keys etc. These scripts must be run sudo root, and you should review them first. The scripts are:
+
+Apt/deb repositories: https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh
+Yum/rpm repositories: https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh
+The scripts check your Linux distribution and version, and use those parameters to create the best repository URL. If you are running one of the distributions listed for the latest version of Git LFS listed at packagecloud e.g debian/jessie, el/7, you can run the script without parameters:
+
+Apt/deb repos: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+
+Yum/rpm repos: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
+
+If you are running a distribution which does not match exactly a repository uploaded for Git LFS, but for which there is a repository for a compatible upstream distribution, you can either run the script with some additional parameters, or run it and then manually-correct the resulting repository URLs. See #1074 for details.
+
+If you are running LinuxMint 17.1 Rebecca, which is downstream of Ubuntu Trusty and Debian Jessie, you can run:
+
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | os=debian dist=jessie sudo -E sudo bash
+
+The os and dist variables passed-in will override what would be detected for your system and force the selection of the upstream distribution's repository.
+
+### Clone the Repo
+```
+git lfs clone https://github.com/AltcoinCoop/Mynt/
+cd Mynt
+```
+or if you forgot to clone with Git LFS (as stated above) don't panic, proceed with the following.
 ```
 git clone https://github.com/AltcoinCoop/Mynt/
 cd Mynt
@@ -150,6 +185,7 @@ git lfs fetch
 git lfs checkout
 git lfs pull
 ```
+If you are unable to readjust the file pointers left behind by Git LFS to the file objects, you may proceed but your copy of the blockchain may not fully compile or there may be an error in your daemon which says the key/pair mismatch. This is OK, but not optimal. For faster syncing with the blockchain and hardened checkpoints make sure to follow the quick and easy Git LFS setup and ``` git lfs clone https://github.com/AltcoinCoop/Mynt/ ``` or update with ```git lfs fetch, git lfs checkout, git lfs pull ```  
 
 ### Dependencies
 
@@ -180,6 +216,7 @@ library archives (`.a`).
 | GTest          | 1.5           | YES      | `libgtest-dev`^    | `gtest`        | YES      | Test suite     |
 | Doxygen        | any           | NO       | `doxygen`          | `doxygen`      | YES      | Documentation  |
 | Graphviz       | any           | NO       | `graphviz`         | `graphviz`     | YES      | Documentation  |
+| Git LFS        | any           | NO       | `git-lfs`          | `git-lfs`      | YES      | Documentation  |
 
 [^] On Debian/Ubuntu `libgtest-dev` only includes sources and headers. You must
 build the library binary manually. This can be done with the following command ```sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake . && sudo make && sudo mv libg* /usr/lib/ ```
