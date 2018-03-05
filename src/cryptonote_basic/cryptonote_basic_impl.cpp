@@ -91,14 +91,20 @@ namespace cryptonote {
     const int target = DIFFICULTY_TARGET;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
-
-    const uint64_t premine = 60100000000000000U;
-    if (median_size > 0 && already_generated_coins < premine) {
+    uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    
+    const uint64_t projected = 700000000000U;
+    const uint64_t premine = 100000000000U;
+    if (median_size > 0 && already_generated_coins < projected) {
       reward = premine;
       return true;
     }
+    
+    if (version == 6 && median_size > 0 && already_generated_coins <= projected) {
+       base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+       reward = premine;
+       return true;
 
-    uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     if (base_reward < FINAL_SUBSIDY_PER_MINUTE*target_minutes)
     {
       base_reward = FINAL_SUBSIDY_PER_MINUTE*target_minutes;
