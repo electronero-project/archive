@@ -153,9 +153,9 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 46091;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 44092;
   boost::uuids::uuid const NETWORK_ID = { {
-      0x04, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0x85, 0x8E, 0xC8, 0x39
+       0x14,0x3d, 0x8, 0xe3, 0x49, 0x4f,0x8, 0x19, 0x2b, 0x2b, 0x8, 0xe3, 0x31, 0x31, 0x8, 0x19
     } }; // Bytecoin network, new genesis
-  std::string const GENESIS_TX = "010a01ff0001e9fe91b5ba02029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd088071210190dde8f33277b5379885019046ba5063d7c0e01aa6f9c32eddac7e69e836698a";
+  std::string const GENESIS_TX = "010501ff0001ffffffffff01029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101a3fb85759bc97ca9b176e6dde547b6882e62d3c651b4f35183edb9c46022a47f";
   uint32_t const GENESIS_NONCE = 10000;
 
   namespace testnet
