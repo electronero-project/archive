@@ -94,7 +94,8 @@ namespace cryptonote {
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t project = 4625000000000000000U;
-    const int premine = .25 * MONEY_SUPPLY;
+    const int token_supply = MONEY_SUPPLY;
+    const int premine = token_supply * .25;
     if (version == 6 && median_size > 0 && already_generated_coins < project) {
       base_reward = premine;
       return true;
