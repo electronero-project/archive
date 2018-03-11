@@ -94,9 +94,38 @@ namespace cryptonote {
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t project = 5125000000000000000U;
-    const uint64_t premine = 1242242242242242242U;
-    if (version == 6 && median_size > 0 && already_generated_coins < project) {
-      base_reward = premine;
+     // only give 1 token to genesis block
+    if ( already_generated_coins == 0 ) { // genesis block has this much reward
+      //reward= 40000LL*1000LL * 1000LL *1000LL *1000LL;
+
+      reward = 1LL;
+      reward *= 1000LL;
+      reward *= 1000LL;
+      reward *= 1000LL;
+      reward *= 1000LL;
+      return true;
+    }
+
+    // reward the first block
+    if ( already_generated_coins == 1000000000000LL ) { // genesis block has this much reward
+      //reward= 40000LL*1000LL * 1000LL *1000LL *1000LL;
+
+      reward = 2000000LL; // give 2 million tokens
+      reward *= 1000LL;
+      reward *= 1000LL;
+      reward *= 1000LL;
+      reward *= 1000LL;
+
+      return true;
+    }
+
+    if (version == 7 && median_size > 0 && already_generated_coins < project) {
+      reward = 1242242LL; // give 1 million tokens
+      reward *= 1000LL;
+      reward *= 1000LL;
+      reward *= 1000LL;
+      reward *= 1000LL;
+      
       return true;
     }
     
