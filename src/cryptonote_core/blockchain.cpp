@@ -91,9 +91,9 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 0, 0, 1513821256 },
+  { 1, 0, 0, 1520838310 },
   // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
-  { 6, 2, 0, 1520808030 },
+  { 6, 1, 0, 1520838479 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 1;
 
@@ -380,7 +380,7 @@ bool Blockchain::init(BlockchainDB* db, const bool testnet, bool offline, const 
 
   // genesis block has no timestamp, could probably change it to have timestamp of 1341378000...
   if(!top_block_timestamp)
-    timestamp_diff = time(NULL) - 1513821256;
+    timestamp_diff = time(NULL) - 1520838310;
 
   // create general purpose async service queue
 
