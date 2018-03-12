@@ -187,16 +187,16 @@ namespace cryptonote
     std::vector<std::string> records;
 
     // All four MyntPulse domains have DNSSEC on and valid
-    static const std::vector<std::string> dns_urls = { "checkpoints.myntpulse.com"
-						     , "checkpoints.myntpulse.org"
-						     , "checkpoints.myntpulse.net"
-						     , "checkpoints.myntpulse.info"
+    static const std::vector<std::string> dns_urls = { "flytcheck.myntpulse.com"
+						     , "flytcheck.myntpulse.org"
+						     , "flytcheck.myntpulse.net"
+						     , "flytcheck.myntpulse.info"
     };
 
-    static const std::vector<std::string> testnet_dns_urls = { "testpoints.myntpulse.com"
-							     , "testpoints.myntpulse.org"
-							     , "testpoints.myntpulse.net"
-							     , "testpoints.myntpulse.info"
+    static const std::vector<std::string> testnet_dns_urls = { "testflyt.myntpulse.com"
+							     , "testflyt.myntpulse.org"
+							     , "testflyt.myntpulse.net"
+							     , "testflyt.myntpulse.info"
     };
 
     if (!tools::dns_utils::load_txt_records_from_dns(records, testnet ? testnet_dns_urls : dns_urls))
