@@ -102,7 +102,7 @@ namespace cryptonote {
       reward *= 1000LL;
       reward *= 1000LL;
       reward *= 1000LL;
-      base_reward = reward
+      base_reward = reward;
       return true;
     }
     
