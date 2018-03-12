@@ -91,11 +91,11 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1513821256 },
+  { 1, 0, 0, 1513821256 },
   // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
-  { 6, 3, 0, 1520808030 },
+  { 6, 2, 0, 1520808030 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 2;
+static const uint64_t mainnet_hard_fork_version_1_till = 1;
 
 static const struct {
   uint8_t version;
