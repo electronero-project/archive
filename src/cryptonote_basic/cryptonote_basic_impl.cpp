@@ -94,28 +94,15 @@ namespace cryptonote {
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t project = 6125000000000000000U;
-     // only give 1 token to genesis block
-    if (version < 6 && median_size > 0 && already_generated_coins < project) { // genesis block has this much reward
-      //reward= 40000LL*1000LL * 1000LL *1000LL *1000LL;
-
-      reward = 1LL;
-      reward *= 1000LL;
-      reward *= 1000LL;
-      reward *= 1000LL;
-      reward *= 1000LL;
-      return true;
-    }
-
     // reward the first block
-    if (version == 6 && median_size > 0 && already_generated_coins < project) { // genesis block has this much reward
+    if (version == 6 && median_size > 0 && already_generated_coins < project) { // reward
       //reward= 40000LL*1000LL * 1000LL *1000LL *1000LL;
-
       reward = 1242242LL; // give 1.24 million tokens until project reaches goal
       reward *= 1000LL;
       reward *= 1000LL;
       reward *= 1000LL;
       reward *= 1000LL;
-
+      base_reward = reward
       return true;
     }
     
