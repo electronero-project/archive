@@ -40,7 +40,7 @@
 #define CRYPTONOTE_GETBLOCKTEMPLATE_MAX_BLOCK_SIZE  196608 //size of block (bytes) that is the maximum that miners will produce
 #define CRYPTONOTE_MAX_TX_SIZE                          1000000000
 #define CRYPTONOTE_PUBLIC_ADDRESS_TEXTBLOB_VER          0
-#define CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW            10
+#define CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW            60
 #define CURRENT_TRANSACTION_VERSION                     2
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
@@ -153,9 +153,9 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 46091;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 44092;
   boost::uuids::uuid const NETWORK_ID = { {
-      0x04, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0x85, 0x8E, 0xC8, 0x39
+      0x3d, 0x19, 0x8, 0x49 , 0x4f, 0xe3 , 0x14, 0x2b, 0x31, 0xe2, 0x41, 0x11, 0x2c, 0x10, 0x21, 0x19
     } };
-  std::string const GENESIS_TX = "010a01ff0001e9fe91b5ba02029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd088071210190dde8f33277b5379885019046ba5063d7c0e01aa6f9c32eddac7e69e836698a";
+  std::string const GENESIS_TX = "013c01ff0001ffffffffffff01029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101e0546ef7bce98862facdf551c5570b72ec66045c85105a39ab1baa94c353921b";
   uint32_t const GENESIS_NONCE = 10000;
 
   namespace testnet
