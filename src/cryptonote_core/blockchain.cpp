@@ -91,26 +91,20 @@ static const struct {
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 0, 0, 1341378000 },
-
-  // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-//   { 2, 1009827, 0, 1442763710 },
-
-  // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-//   { 3, 1141317, 0, 1458558528 },
-  
-  // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-//   { 4, 1220516, 0, 1483574400 },
-  
-  // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-//   { 5, 1288616, 0, 1489520158 },  
-
-  // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  { 6, 1, 0, 1521361912 },
+  // version 2 starts from block 84000, which is on or around the 18th of February, 2018. No fork voting occurs for the v2 fork.
+  { 2, 84000, 0, 1518919414 },
+  // versions 3-6 are to be passed in rapid succession from Febryary 18th, 2018.
+  { 3, 84006, 0, 1518921689 },
+  // versions 4-6 enable ring signatures.
+  { 4, 84012, 0, 1518922948 },
+  { 5, 84024, 0, 1518925063 },
+  // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
+  { 6, 84030, 0, 1518925393 },
 
   // version 7 starts from block 1539500, which is on or around the 28th of March, 2018. Fork time finalised on 2018-03-07.
-  { 7, 50, 0, 1521362912 },
+  { 7, 125000, 0, 1521362912 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 1;
+static const uint64_t mainnet_hard_fork_version_1_till = 83999;
 
 static const struct {
   uint8_t version;
@@ -119,21 +113,17 @@ static const struct {
   time_t time;
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
-
-  // version 2 starts from block 624634, which is on or around the 23rd of November, 2015. Fork time finalised on 2015-11-20. No fork voting occurs for the v2 fork.
-  { 2, 624634, 0, 1445355000 },
-
-  // versions 3-5 were passed in rapid succession from September 18th, 2016
-  { 3, 800500, 0, 1472415034 },
-  { 4, 801219, 0, 1472415035 },
-  { 5, 802660, 0, 1472415036 + 86400*180 }, // add 5 months on testnet to shut the update warning up since there's a large gap to v6
-
-  { 6, 971400, 0, 1501709789 },
-  { 7, 1057027, 0, 1512211236 },
-  { 8, 1057058, 0, 1515967497 },
+  { 1, 0, 0, 1341378000 },
+  // version 2 starts from block 3, which is on or around the 6th of February, 2018. Fork time finalised on 2018-02-06. No fork voting occurs for the v2 fork.
+  { 2, 1, 0, 1518226746 },
+  // versions 3-7 were passed in rapid succession from February 6th, 2018
+  { 3, 6, 0, 1518228746 },
+  { 4, 9, 0, 1518229746 },
+  { 5, 12, 0, 1518233746 },
+  { 6, 16, 0, 1518234746 },
+  { 7, 20, 0, 1518235746 },
 };
-static const uint64_t testnet_hard_fork_version_1_till = 624633;
+static const uint64_t testnet_hard_fork_version_1_till = 1;
 
 static const struct {
   uint8_t version;
@@ -143,14 +133,14 @@ static const struct {
 } stagenet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 0, 0, 1341378000 },
-
-  // versions 2-7 in rapid succession from March 13th, 2018
-//   { 2, 32000, 0, 1521000000 },
-//   { 3, 33000, 0, 1521120000 },
-//   { 4, 34000, 0, 1521240000 },
-//   { 5, 35000, 0, 1521360000 },
-//   { 6, 36000, 0, 1521480000 },
-  { 7, 1, 0, 1521600000 },
+  // version 2 starts from block 3, which is on or around the 6th of February, 2018. Fork time finalised on 2018-02-06. No fork voting occurs for the v2 fork.
+  { 2, 3, 0, 1518226746 },
+  // versions 3-7 were passed in rapid succession from February 6th, 2018
+  { 3, 6, 0, 1518228746 },
+  { 4, 9, 0, 1518229746 },
+  { 5, 12, 0, 1518233746 },
+  { 6, 16, 0, 1518234746 },
+  { 7, 20, 0, 1518235746 },
 };
 
 //------------------------------------------------------------------
