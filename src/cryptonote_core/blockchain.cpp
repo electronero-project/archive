@@ -90,27 +90,27 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 0, 0, 1341378000 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  { 2, 1009827, 0, 1442763710 },
+//   { 2, 1009827, 0, 1442763710 },
 
   // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  { 3, 1141317, 0, 1458558528 },
+//   { 3, 1141317, 0, 1458558528 },
   
   // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  { 4, 1220516, 0, 1483574400 },
+//   { 4, 1220516, 0, 1483574400 },
   
   // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  { 5, 1288616, 0, 1489520158 },  
+//   { 5, 1288616, 0, 1489520158 },  
 
   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  { 6, 1400000, 0, 1503046577 },
+  { 6, 1, 0, 1521361912 },
 
   // version 7 starts from block 1539500, which is on or around the 28th of March, 2018. Fork time finalised on 2018-03-07.
-  { 7, 1539500, 0, 1520436050 },
+  { 7, 50, 0, 1521362912 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
+static const uint64_t mainnet_hard_fork_version_1_till = 1;
 
 static const struct {
   uint8_t version;
@@ -142,15 +142,15 @@ static const struct {
   time_t time;
 } stagenet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 0, 0, 1341378000 },
 
   // versions 2-7 in rapid succession from March 13th, 2018
-  { 2, 32000, 0, 1521000000 },
-  { 3, 33000, 0, 1521120000 },
-  { 4, 34000, 0, 1521240000 },
-  { 5, 35000, 0, 1521360000 },
-  { 6, 36000, 0, 1521480000 },
-  { 7, 37000, 0, 1521600000 },
+//   { 2, 32000, 0, 1521000000 },
+//   { 3, 33000, 0, 1521120000 },
+//   { 4, 34000, 0, 1521240000 },
+//   { 5, 35000, 0, 1521360000 },
+//   { 6, 36000, 0, 1521480000 },
+  { 7, 1, 0, 1521600000 },
 };
 
 //------------------------------------------------------------------
@@ -415,7 +415,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   if (m_nettype != FAKECHAIN)
   {
     // ensure we fixup anything we found and fix in the future
-    m_db->fixup();
+//     m_db->fixup(); // this breaks inital setup -shopglobal
   }
 
   m_db->block_txn_start(true);
@@ -434,8 +434,8 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   m_async_pool.create_thread(boost::bind(&boost::asio::io_service::run, &m_async_service));
 
 #if defined(PER_BLOCK_CHECKPOINT)
-  if (m_nettype != FAKECHAIN)
-    load_compiled_in_block_hashes();
+//   if (m_nettype != FAKECHAIN)
+//     load_compiled_in_block_hashes(); // this breaks inital setup -shopglobal
 #endif
 
   MINFO("Blockchain initialized. last block: " << m_db->height() - 1 << ", " << epee::misc_utils::get_time_interval_string(timestamp_diff) << " time ago, current difficulty: " << get_difficulty_for_next_block());
