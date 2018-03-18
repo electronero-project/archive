@@ -378,27 +378,33 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (nettype == cryptonote::TESTNET)
     {
-      full_addrs.insert("212.83.175.67:28080");
-      full_addrs.insert("5.9.100.248:28080");
-      full_addrs.insert("163.172.182.165:28080");
-      full_addrs.insert("195.154.123.123:28080");
-      full_addrs.insert("212.83.172.165:28080");
+      full_addrs.insert("159.65.112.12:21080");
+      full_addrs.insert("139.59.26.164:21080");
+      full_addrs.insert("46.101.40.29:21080");
+      full_addrs.insert("138.197.149.126:21080");
+      full_addrs.insert("165.227.189.226:21080");
+      full_addrs.insert("159.65.83.53:21080");
+      full_addrs.insert("178.62.194.78:21080");
     }
     else if (nettype == cryptonote::STAGENET)
     {
-      full_addrs.insert("162.210.173.150:38080");
-      full_addrs.insert("162.210.173.151:38080");
+      full_addrs.insert("159.65.112.12:58080");
+      full_addrs.insert("139.59.26.164:58080");
+      full_addrs.insert("46.101.40.29:58080");
+      full_addrs.insert("138.197.149.126:58080");
+      full_addrs.insert("165.227.189.226:58080");
+      full_addrs.insert("159.65.83.53:58080");
+      full_addrs.insert("178.62.194.78:58080");
     }
     else
     {
-      full_addrs.insert("107.152.130.98:18080");
-      full_addrs.insert("212.83.175.67:18080");
-      full_addrs.insert("5.9.100.248:18080");
-      full_addrs.insert("163.172.182.165:18080");
-      full_addrs.insert("161.67.132.39:18080");
-      full_addrs.insert("198.74.231.92:18080");
-      full_addrs.insert("195.154.123.123:28080");
-      full_addrs.insert("212.83.172.165:28080");
+      full_addrs.insert("159.65.112.12:48080");
+      full_addrs.insert("139.59.26.164:48080");
+      full_addrs.insert("46.101.40.29:48080");
+      full_addrs.insert("138.197.149.126:48080");
+      full_addrs.insert("165.227.189.226:48080");
+      full_addrs.insert("159.65.83.53:48080");
+      full_addrs.insert("178.62.194.78:48080");
     }
     return full_addrs;
   }
@@ -490,7 +496,7 @@ namespace nodetool
         if (result.size())
         {
           for (const auto& addr_string : result)
-            full_addrs.insert(addr_string + ":18080");
+            full_addrs.insert(addr_string + ":48080");
         }
         ++i;
       }
