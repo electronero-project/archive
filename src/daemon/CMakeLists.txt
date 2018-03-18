@@ -106,5 +106,5 @@ target_link_libraries(daemon
     ${EXTRA_LIBRARIES})
 set_property(TARGET daemon
   PROPERTY
-    OUTPUT_NAME "classicd")
+    OUTPUT_NAME "blackd")
 install(TARGETS daemon DESTINATION bin)
