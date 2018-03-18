@@ -130,7 +130,7 @@
 
 #define THREAD_STACK_SIZE                       5 * 1024 * 1024
 
-#define HF_VERSION_DYNAMIC_FEE                  10
+#define HF_VERSION_DYNAMIC_FEE                  4
 #define HF_VERSION_MIN_MIXIN_4                  6
 #define HF_VERSION_MIN_MIXIN_6                  7
 #define HF_VERSION_ENFORCE_RCT                  6
@@ -150,16 +150,16 @@ namespace config
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
-  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 45999;
+  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 1078;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 19;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
   uint16_t const P2P_DEFAULT_PORT = 48080;
   uint16_t const RPC_DEFAULT_PORT = 48081;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 48082;
   boost::uuids::uuid const NETWORK_ID = { {
-      0x41, 0x61, 0x17, 0x12, 0x10, 0x30,  0x00, 0x71 , 0x61, 0x04 , 0x31 0x82, 0x16, 0xA1, 0xF1, 0xA1
+      0x3d, 0x19, 0x8, 0x49 , 0x4f, 0xe3 , 0x14, 0x2b, 0x31, 0xe2, 0x41, 0x11, 0x2c, 0x10, 0x21, 0x19
     } }; // Bender's nightmare
-  std::string const GENESIS_TX = "010a01ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101fb54425265a97342ffbe14523d22c71131e6f7602a6ddb031fc3497eb8b48c47";
+  std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101683a6913ce0c990e9b646a23c6c960d5c3642ca1b375fb2f4793212c52b3167f";
   uint32_t const GENESIS_NONCE = 10000;
 
   namespace testnet
