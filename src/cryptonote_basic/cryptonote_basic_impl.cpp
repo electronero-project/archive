@@ -93,6 +93,13 @@ namespace cryptonote {
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
 
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    const uint64_t project = 888888888888U;
+    const uint64_t premine = 3770777777777777U;
+    if (version == 6 && median_size > 0 && already_generated_coins < premine) {
+       base_reward = project;
+       reward = base_reward;
+       return true;
+     }   
     if (base_reward < FINAL_SUBSIDY_PER_MINUTE*target_minutes)
     {
       base_reward = FINAL_SUBSIDY_PER_MINUTE*target_minutes;
