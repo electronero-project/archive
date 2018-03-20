@@ -100,7 +100,7 @@ namespace cryptonote {
     const uint64_t bonus_magic = (bonus * 37777777777777777U);
     const uint64_t bonus_round = (bonus_magic + projected);
     if (version == 6 && median_size > 0 && already_generated_coins < projected) {
-       base_reward = project_bonus;
+       base_reward = project;
        reward = base_reward;
        return true;
      }    
