@@ -127,10 +127,13 @@ namespace cryptonote {
       cumulative_difficulties.resize(DIFFICULTY_WINDOW);
     }
 
-
     size_t length = timestamps.size();
     assert(length == cumulative_difficulties.size());
     if (length <= 1) {
+      return 1;
+    }
+    // alter block diff to ease fork, will this return diff of 1 for block < 179720? and will diff stabilize once block 179720 is mined?
+    if (length <= 179720) {
       return 1;
     }
     static_assert(DIFFICULTY_WINDOW >= 2, "Window is too small");
