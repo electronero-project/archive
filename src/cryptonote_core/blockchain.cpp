@@ -89,11 +89,11 @@ static const struct {
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1341378000 },
-  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523491942 },
+  // { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523491942 },
   // { 3, 110, 0, 1535913139 },
   // { 4, 125, 0, 1535913139 },
   // { 5, 150, 0, 1535913139 },
-  // { 6, 200, 0, 1535913139 },  
+  { 6, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523496942 },  
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
 
