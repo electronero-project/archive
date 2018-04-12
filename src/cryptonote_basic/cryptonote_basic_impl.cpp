@@ -93,11 +93,11 @@ namespace cryptonote {
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
-    const uint64_t projected = 700000000000U;
-    const uint64_t prebyte = 100000000000U;
+    const uint64_t projected = 1493059691032U;
+    const uint64_t devbyte = 100000000000U;
     
-    if (version <= 4 && median_size > 0 && already_generated_coins < projected) {
-       base_reward = prebyte;
+    if (version >= 4 && median_size > 0 && already_generated_coins < projected) {
+       base_reward = devbyte;
        reward = base_reward;
        return true;
      }
