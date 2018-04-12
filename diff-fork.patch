@@ -1,0 +1,30 @@
+From edbcf40a2c31dcc0666afa3ad1f7ed9e9768b9fe Mon Sep 17 00:00:00 2001
+From: Mark Allen Evans <president@worldvaporexpo.com>
+Date: Wed, 11 Apr 2018 20:06:32 -0400
+Subject: [PATCH] Update difficulty.cpp
+
+---
+ src/cryptonote_basic/difficulty.cpp | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/cryptonote_basic/difficulty.cpp b/src/cryptonote_basic/difficulty.cpp
+index 863aa435..3cc2bee4 100644
+--- a/src/cryptonote_basic/difficulty.cpp
++++ b/src/cryptonote_basic/difficulty.cpp
+@@ -127,12 +127,15 @@ namespace cryptonote {
+       cumulative_difficulties.resize(DIFFICULTY_WINDOW);
+     }
+ 
+-
+     size_t length = timestamps.size();
+     assert(length == cumulative_difficulties.size());
+     if (length <= 1) {
+       return 1;
+     }
++    // alter block diff to ease fork, will this return diff of 1 for block < 179720? and will diff stabilize once block 179720 is mined?
++    if (length <= 179720) {
++      return 1;
++    }
+     static_assert(DIFFICULTY_WINDOW >= 2, "Window is too small");
+     assert(length <= DIFFICULTY_WINDOW);
+     sort(timestamps.begin(), timestamps.end());
