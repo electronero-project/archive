@@ -58,7 +58,7 @@
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
-#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(179721))
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(179723))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
 //#include "serialization/json_archive.h"
