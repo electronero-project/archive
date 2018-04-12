@@ -58,7 +58,7 @@
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
-
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(179721))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
 //#include "serialization/json_archive.h"
@@ -89,13 +89,13 @@ static const struct {
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1341378000 },
-  // { 2, 100, 0, 1535913139 },
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523491942 },
   // { 3, 110, 0, 1535913139 },
   // { 4, 125, 0, 1535913139 },
   // { 5, 150, 0, 1535913139 },
   // { 6, 200, 0, 1535913139 },  
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 200000;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -703,6 +703,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();
+  // Reset network hashrate to 2.0 MHz when hardfork v3 comes
+  if (!m_testnet && (uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT){
+    return (difficulty_type) 480000000;
+  }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
