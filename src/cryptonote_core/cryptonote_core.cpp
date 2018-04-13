@@ -805,7 +805,7 @@ namespace cryptonote
   //-----------------------------------------------------------------------------------------------
   size_t core::get_block_sync_size(uint64_t height) const
   {
-    static const uint64_t quick_height = m_nettype == TESTNET ? 1 : m_nettype == MAINNET ? 1 : 0;
+    static const uint64_t quick_height = m_testnet ? 1 : 1;
     if (block_sync_size > 0)
       return block_sync_size;
     if (height >= quick_height)
