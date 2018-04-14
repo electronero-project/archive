@@ -668,14 +668,10 @@ namespace cryptonote
   }
   //---------------------------------------------------------------
   void set_default_decimal_point(unsigned int decimal_point)
-  {
+ {
     switch (decimal_point)
     {
-      case 12:
-      case 9:
-      case 6:
-      case 3:
-      case 0:
+      case 2:
         default_decimal_point = decimal_point;
         break;
       default:
@@ -694,16 +690,10 @@ namespace cryptonote
       decimal_point = default_decimal_point;
     switch (std::atomic_load(&default_decimal_point))
     {
-      case 12:
-        return "monero"; // full token
-      case 9:
-        return "millinero"; 
-      case 6:
-        return "micronero"; 
-      case 3:
-        return "nanonero"; 
+      case 2:
+        return "electronero";
       case 0:
-        return "piconero"; // like a satoshi
+        return "ecent";
       default:
         ASSERT_MES_AND_THROW("Invalid decimal point specification: " << default_decimal_point);
     }
