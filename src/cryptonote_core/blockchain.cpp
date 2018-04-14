@@ -58,7 +58,7 @@
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
-
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
 using namespace crypto;
@@ -90,21 +90,20 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 0, 0, 1341378000 },
-  // version 2 starts from block 84000, which is on or around the 18th of February, 2018. No fork voting occurs for the v2 fork.
-  { 2, 84000, 0, 1518919414 },
-  // versions 3-6 are to be passed in rapid succession from Febryary 18th, 2018.
-  { 3, 84006, 0, 1518921689 },
-  // versions 4-6 enable ring signatures.
-  { 4, 84012, 0, 1518922948 },
-  { 5, 84024, 0, 1518925063 },
-  // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
-  { 6, 84030, 0, 1518925393 },
-
-  // version 7 starts from block 1539500, which is on or around the 28th of March, 2018. Fork time finalised on 2018-03-07.
-  { 7, 125000, 0, 1521362912 },
+  { 1, 1, 0, 1341378000 },
+  // version 2 starts from block 241499, which is on or around the 14th of April, 2018. No fork voting occurs for the v2 fork.
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523732841 },
+//   // versions 3-6 are to be passed in rapid succession from Febryary 18th, 2018.
+//   { 3, 84006, 0, 1518921689 },
+//   // versions 4-6 enable ring signatures.
+//   { 4, 84012, 0, 1518922948 },
+//   { 5, 84024, 0, 1518925063 },
+//   // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
+//   { 6, 84030, 0, 1518925393 },
+//   // version 7 starts from block 1539500, which is on or around the 28th of March, 2018. Fork time finalised on 2018-03-07.
+//   { 7, 125000, 0, 1521362912 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 83999;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -746,6 +745,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();
+  // Reset network hashrate to 2.0 MHz when hardfork v3 comes
+  if (!m_testnet && (uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT){
+    return (difficulty_type) 18857179585;
+  }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
