@@ -46,10 +46,10 @@ namespace tools
 
     // All four MyntPulse domains have DNSSEC on and valid
     static const std::vector<std::string> dns_urls = {
-        "updates.myntpulse.org",
-        "updates.myntpulse.net",
-        "updates.myntpulse.info",
-        "updates.myntpulse.com"
+        "updates.electroneropulse.org",
+        "updates.electroneropulse.net",
+        "updates.electroneropulse.info",
+        "updates.electroneropulse.com"
     };
 
     if (!tools::dns_utils::load_txt_records_from_dns(records, dns_urls))
@@ -99,7 +99,7 @@ namespace tools
 
   std::string get_update_url(const std::string &software, const std::string &subdir, const std::string &buildtag, const std::string &version, bool user)
   {
-    const char *base = user ? "https://downloads.getmynt.org/" : "http://updates.getmynt.org/";
+    const char *base = user ? "https://downloads.electronero.org/" : "http://updates.electronero.org/";
 #ifdef _WIN32
     static const char *extension = strncmp(buildtag.c_str(), "install-", 8) ? ".zip" : ".exe";
 #else
