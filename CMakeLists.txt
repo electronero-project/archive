@@ -34,7 +34,7 @@ endif()
 
 cmake_minimum_required(VERSION 2.8.7)
 
-project(mynt)
+project(electronero)
 
 function (die msg)
   if (NOT WIN32)
