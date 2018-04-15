@@ -341,17 +341,12 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   m_offline = offline;
   if (m_hardfork == nullptr)
   {
-    if (m_nettype ==  FAKECHAIN || m_nettype == STAGENET)
+    if (m_nettype == STAGENET)
       m_hardfork = new HardFork(*db, 1, 0);
     else if (m_nettype == TESTNET)
       m_hardfork = new HardFork(*db, 1, testnet_hard_fork_version_1_till);
     else
       m_hardfork = new HardFork(*db, 1, mainnet_hard_fork_version_1_till);
-  }
-  if (m_nettype == FAKECHAIN)
-  {
-    for (size_t n = 0; test_options->hard_forks[n].first; ++n)
-      m_hardfork->add_fork(test_options->hard_forks[n].first, test_options->hard_forks[n].second, 0, n + 1);
   }
   else if (m_nettype == TESTNET)
   {
@@ -426,6 +421,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
 
 #if defined(PER_BLOCK_CHECKPOINT)
 //   if (m_nettype != FAKECHAIN)
+       m_db->set_batch_transactions(true);
 //     load_compiled_in_block_hashes(); // this breaks inital setup -shopglobal
 #endif
 
