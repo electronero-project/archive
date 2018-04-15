@@ -60,5 +60,5 @@ target_link_libraries(simplewallet
     ${EXTRA_LIBRARIES})
 set_property(TARGET simplewallet
   PROPERTY
-    OUTPUT_NAME "mynt-wallet-cli")
+    OUTPUT_NAME "electronero-wallet-cli")
 install(TARGETS simplewallet DESTINATION bin)
