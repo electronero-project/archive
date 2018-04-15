@@ -84,10 +84,11 @@ DISABLE_VS_WARNINGS(4267)
 // used to overestimate the block reward when estimating a per kB to use
 #define BLOCK_REWARD_OVERESTIMATE (10 * 1000000000000)
 #define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
-#define MAINNET_HARDFORK_V3_HEIGHT  ((uint64_t)(239940))
-#define MAINNET_HARDFORK_V4_HEIGHT  ((uint64_t)(239950))
-#define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239960))
+#define MAINNET_HARDFORK_V3_HEIGHT  ((uint64_t)(239950))
+#define MAINNET_HARDFORK_V4_HEIGHT  ((uint64_t)(239960))
+#define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239970))
 #define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239930))
+#define MAINNET_HARDFORK_V7_HEIGHT  ((uint64_t)(239949))
 	
 static const struct {
   uint8_t version;
@@ -2929,12 +2930,12 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
 
   uint64_t unscaled_fee_per_kb = (fee_per_kb_base * min_block_size / median_block_size);
   uint64_t hi, lo = mul128(unscaled_fee_per_kb, block_reward, &hi);
-  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD % 1000000 == 0, "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD must be divisible by 1000000");
-  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 1000000 <= std::numeric_limits<uint32_t>::max(), "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD is too large");
+  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD % 3 == 0, "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD must be divisible by 3");
+  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 3 <= std::numeric_limits<uint32_t>::max(), "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD is too large");
 
   // divide in two steps, since the divisor must be 32 bits, but DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD isn't
-  div128_32(hi, lo, DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 1000000, &hi, &lo);
-  div128_32(hi, lo, 1000000, &hi, &lo);
+  div128_32(hi, lo, DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 3, &hi, &lo);
+  div128_32(hi, lo, 3, &hi, &lo);
   assert(hi == 0);
 
   // quantize fee up to 8 decimals
