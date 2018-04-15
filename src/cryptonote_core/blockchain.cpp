@@ -377,7 +377,7 @@ bool Blockchain::init(BlockchainDB* db, const bool testnet, bool offline, const 
   {
   }
 
-  if (!fakechain)
+  if (!m_testnet)
   {
     // ensure we fixup anything we found and fix in the future
     m_db->set_batch_transactions(true);
@@ -2429,10 +2429,10 @@ bool Blockchain::check_tx_outputs(const transaction& tx, tx_verification_context
   }
 
   // from v7, allow bulletproofs
-  if (hf_version < 7 || !m_testnet) {
+  if (hf_version < 6) {
     if (!tx.rct_signatures.p.bulletproofs.empty())
     {
-      MERROR("Bulletproofs are not allowed before v7 or on mainnet");
+      MERROR("Bulletproofs are not allowed before v6 or on mainnet");
       tvc.m_invalid_output = true;
       return false;
     }
