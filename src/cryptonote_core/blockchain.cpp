@@ -106,7 +106,7 @@ static const struct {
   { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523834826 },
   { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1523835626 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V6_HEIGHT-1;
 
 static const struct {
   uint8_t version;
