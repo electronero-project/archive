@@ -45,6 +45,7 @@ using namespace epee;
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
+#define FINITE_SUBSIDY (FINAL_SUBSIDY_PER_MINUTE*target_minutes+1)
 
 namespace cryptonote {
 
@@ -91,25 +92,39 @@ namespace cryptonote {
     const int target = version < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
-    uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;    
+    const uint64_t bonus = base_reward + 1000000U; // bonus added to reward for miners
+    const uint64_t bonus_magic = bonus * 10000000U; // limited bonus reward for bonus round
+    const uint64_t projected = already_generated_coins + bonus_magic; // project bonus cap
+    const uint64_t bonus_round = bonus_magic + projected; // bonus round and project fee cap
     
-    const uint64_t project = 6125000000000000000U;
-    // reward the first block
-    if (version == 6 && median_size > 0 && already_generated_coins < project) { // reward
-      //reward= 40000LL*1000LL * 1000LL *1000LL *1000LL;
-      reward = 1242242LL; // give 1.24 million tokens until project reaches goal
-      reward *= 1000LL;
-      reward *= 1000LL;
-      reward *= 1000LL;
-      reward *= 1000LL;
-      base_reward = reward;
-      return true;
-    }
+    // project bonus for dev team. 
+    if (version == 6 && median_size > 0 && already_generated_coins < bonus_round) {
+       base_reward = bonus_magic; // reward project bonus_magic
+       reward = base_reward; 
+       return true;
+     }    
+     
+    // bonus rewarded to miners for fork efforts.
+    if (version == 7 && median_size > 0 && already_generated_coins < bonus_round) {
+       base_reward = bonus; // reward bonus to miners 
+       reward = base_reward; 
+       return true;
+     }
     
-    if (base_reward < FINAL_SUBSIDY_PER_MINUTE*target_minutes)
+    // after already_generated_coins > bonus_round ends --
+    // -- reward returns to organic emission curve.
+    if (already_generated_coins > bonus_round) {
+       base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+       reward = base_reward;
+       return true;
+     }
+    
+    if (base_reward < FINITE_SUBSIDY)
     {
       base_reward = FINAL_SUBSIDY_PER_MINUTE*target_minutes;
     }
+
 
     uint64_t full_reward_zone = get_min_block_size(version);
 
