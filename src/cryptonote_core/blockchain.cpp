@@ -83,7 +83,12 @@ DISABLE_VS_WARNINGS(4267)
 
 // used to overestimate the block reward when estimating a per kB to use
 #define BLOCK_REWARD_OVERESTIMATE (10 * 1000000000000)
-
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
+#define MAINNET_HARDFORK_V3_HEIGHT  ((uint64_t)(239940))
+#define MAINNET_HARDFORK_V4_HEIGHT  ((uint64_t)(239950))
+#define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239960))
+#define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239930))
+	
 static const struct {
   uint8_t version;
   uint64_t height;
@@ -91,11 +96,16 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 0, 0, 1520838310 },
+  { 1, 1, 0, 1341378000 },
   // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
-  { 6, 1, 0, 1520838479 },
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523837026 },
+  { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1523833126 },
+  { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1523833726 },
+  { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1523834226 },
+  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523834826 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1523835626 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 1;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -106,13 +116,13 @@ static const struct {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1518223746 },
   // version 2 starts from block 3, which is on or around the 6th of February, 2018. Fork time finalised on 2018-02-06. No fork voting occurs for the v2 fork.
-  { 2, 3, 0, 1518226746 },
+  { 2, 10, 0, 1518226746 },
   // versions 3-7 were passed in rapid succession from February 6th, 2018
-  { 3, 6, 0, 1518228746 },
-  { 4, 9, 0, 1518229746 },
-  { 5, 12, 0, 1518233746 },
-  { 6, 16, 0, 1518234746 },
-  { 7, 20, 0, 1518235746 },
+  { 3, 20, 0, 1518228746 },
+  { 4, 30, 0, 1518229746 },
+  { 5, 40, 0, 1518233746 },
+  { 6, 50, 0, 1518234746 },
+  { 7, 60, 0, 1518235746 },
 };
 static const uint64_t testnet_hard_fork_version_1_till = 2;
 
@@ -380,7 +390,7 @@ bool Blockchain::init(BlockchainDB* db, const bool testnet, bool offline, const 
 
   // genesis block has no timestamp, could probably change it to have timestamp of 1341378000...
   if(!top_block_timestamp)
-    timestamp_diff = time(NULL) - 1520838310;
+    timestamp_diff = time(NULL) - 1341378000;
 
   // create general purpose async service queue
 
@@ -727,6 +737,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();
+  // Reset network hashrate to 333.0 MHz when hardfork v2 comes
+  if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT){
+    return (difficulty_type) 19924656977;
+  }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
