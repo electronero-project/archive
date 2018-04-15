@@ -59,7 +59,7 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 #define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
-#define NETBAND  ((uint64_t)(0))
+#define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239927))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
 using namespace crypto;
@@ -100,7 +100,7 @@ static const struct {
 //   { 4, 84012, 0, 1518922948 },
 //   { 5, 84024, 0, 1518925063 },
 //   // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
-  { 6, 239927, 0, 1523733641 },
+  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523733641 },
 //   // version 7 starts from block 1539500, which is on or around the 28th of March, 2018. Fork time finalised on 2018-03-07.
 //   { 7, 125000, 0, 1521362912 },
 };
