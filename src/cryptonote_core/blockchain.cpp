@@ -95,12 +95,12 @@ static const struct {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1341378000 },
   // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
-  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523837026 },
-  { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1523833126 },
-  { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1523833726 },
-  { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1523834226 },
+//   { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523837026 },
+//   { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1523833126 },
+//   { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1523833726 },
+//   { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1523834226 },
   { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523834826 },
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1523835626 },
+//   { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1523835626 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V6_HEIGHT-1;
 
