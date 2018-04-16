@@ -64,6 +64,7 @@
 #define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239970))
 #define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239930))
 #define MAINNET_HARDFORK_V7_HEIGHT  ((uint64_t)(239949))
+#define ELECTRONERO_HARDFORK_HEIGHT  ((uint64_t)(239921))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
 using namespace crypto;
@@ -757,7 +758,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   
   // Reset network hashrate to 1.0 Hz until hardfork v2 comes
-  if (version == 1 || (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + 1){
+  if ((uint64_t)height >= ELECTRONERO_HARDFORK_HEIGHT){
     return (difficulty_type) 100;
   }
   // Reset network hashrate to 333.0 MHz when hardfork v2 comes
