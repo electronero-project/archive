@@ -45,6 +45,7 @@ using namespace epee;
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
+#define FINITE_SUBSIDY (1)
 
 namespace cryptonote {
 
@@ -91,18 +92,43 @@ namespace cryptonote {
     const int target = DIFFICULTY_TARGET;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
+
+    const uint64_t premine = 1260000000000U;
+    if (median_size > 0 && already_generated_coins < premine) {
+      reward = premine;
+      return true;
+    }
+
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
-    const uint64_t projected = 1493059691032U;
-    const uint64_t devbyte = 100000000000U;
+    const uint64_t bonus = base_reward + 1000000U; // bonus added to reward for miners
+    const uint64_t bonus_magic = bonus * 10000000U; // limited bonus reward for bonus round
+    const uint64_t projected = already_generated_coins + bonus_magic; // project bonus cap
+    const uint64_t bonus_round = bonus_magic + projected; // bonus round and project fee cap
     
-    if (version >= 4 && median_size > 0 && already_generated_coins < projected) {
-       base_reward = devbyte;
+    // project bonus for dev team. 
+    if (version == 6 && median_size > 0 && already_generated_coins < bonus_round) {
+       base_reward = bonus_magic; // reward project bonus_magic
+       reward = base_reward; 
+       return true;
+     }    
+     
+    // bonus rewarded to miners for fork efforts.
+    if (version == 7 && median_size > 0 && already_generated_coins < bonus_round) {
+       base_reward = bonus; // reward bonus to miners 
+       reward = base_reward; 
+       return true;
+     }
+    
+    // after already_generated_coins > bonus_round ends --
+    // -- reward returns to organic emission curve.
+    if (already_generated_coins > bonus_round) {
+       base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
        reward = base_reward;
        return true;
      }
-
-    if (base_reward < FINAL_SUBSIDY_PER_MINUTE*target_minutes)
+    
+    if (base_reward < FINITE_SUBSIDY)
     {
       base_reward = FINAL_SUBSIDY_PER_MINUTE*target_minutes;
     }
