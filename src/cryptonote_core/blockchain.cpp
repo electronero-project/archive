@@ -81,7 +81,13 @@ DISABLE_VS_WARNINGS(4267)
 
 // used to overestimate the block reward when estimating a per kB to use
 #define BLOCK_REWARD_OVERESTIMATE (10 * 1000000000000)
-
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
+#define MAINNET_HARDFORK_V3_HEIGHT  ((uint64_t)(239950))
+#define MAINNET_HARDFORK_V4_HEIGHT  ((uint64_t)(239960))
+#define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239970))
+#define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239930))
+#define MAINNET_HARDFORK_V7_HEIGHT  ((uint64_t)(239949))
+	
 static const struct {
   uint8_t version;
   uint64_t height;
@@ -90,10 +96,15 @@ static const struct {
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1341378000 },
-  // TODO: Define the fork height for v2
-  //{ 2, config::forks::V2_HEIGHT, 0, config::forks::V2_TIME }
+  // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523837026 },
+  { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1523833126 },
+  { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1523833726 },
+  { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1523834226 },
+  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523834826 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1523835626 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = config::forks::V2_HEIGHT - 1;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V6_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -695,6 +706,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();
+  // Reset network hashrate to 333.0 MHz when hardfork v2 comes
+  if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT){
+    return (difficulty_type) 19924656977;
+  }	
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
