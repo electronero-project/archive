@@ -58,7 +58,12 @@
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
-#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(179723))
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
+#define MAINNET_HARDFORK_V3_HEIGHT  ((uint64_t)(239950))
+#define MAINNET_HARDFORK_V4_HEIGHT  ((uint64_t)(239960))
+#define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239970))
+#define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239930))
+#define MAINNET_HARDFORK_V7_HEIGHT  ((uint64_t)(239949))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
 //#include "serialization/json_archive.h"
@@ -89,13 +94,15 @@ static const struct {
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1341378000 },
-  // { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523491942 },
-  // { 3, 110, 0, 1535913139 },
-  // { 4, 125, 0, 1535913139 },
-  // { 5, 150, 0, 1535913139 },
-  { 6, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523496942 },  
+  // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523837026 },
+  { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1523833126 },
+  { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1523833726 },
+  { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1523834226 },
+  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523834826 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1523835626 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V6_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -2828,12 +2835,12 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
 
   uint64_t unscaled_fee_per_kb = (fee_per_kb_base * min_block_size / median_block_size);
   uint64_t hi, lo = mul128(unscaled_fee_per_kb, block_reward, &hi);
-  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD % 1000000 == 0, "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD must be divisible by 1000000");
-  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 1000000 <= std::numeric_limits<uint32_t>::max(), "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD is too large");
+  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD % 3 == 0, "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD must be divisible by 3");
+  static_assert(DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 3 <= std::numeric_limits<uint32_t>::max(), "DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD is too large");
 
   // divide in two steps, since the divisor must be 32 bits, but DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD isn't
-  div128_32(hi, lo, DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 1000000, &hi, &lo);
-  div128_32(hi, lo, 1000000, &hi, &lo);
+  div128_32(hi, lo, DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD / 3, &hi, &lo);
+  div128_32(hi, lo, 3, &hi, &lo);
   assert(hi == 0);
 
   // quantize fee up to 8 decimals
