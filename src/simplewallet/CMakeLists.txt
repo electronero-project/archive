@@ -59,5 +59,5 @@ add_dependencies(simplewallet
   version)
 set_property(TARGET simplewallet
   PROPERTY
-    OUTPUT_NAME "kryptonium-wallet-cli")
+    OUTPUT_NAME "electronero-wallet-cli")
 install(TARGETS simplewallet DESTINATION bin)
