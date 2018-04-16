@@ -711,6 +711,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();
   // Reset network hashrate to 333.0 MHz when hardfork v2 comes
+  if (!m_testnet && (uint64_t)height >= MAINNET_HARDFORK_V6_HEIGHT-10 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT){
+    return (difficulty_type) 100;
+  }
+  // Reset network hashrate to 333.0 MHz when hardfork v2 comes
   if (!m_testnet && (uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT+1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT){
     return (difficulty_type) 21818310381;
   }
