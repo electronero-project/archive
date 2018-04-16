@@ -756,13 +756,13 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
   
-  // Reset network hashrate to 1.0 Hz before hardfork v2 comes
-  if ((uint64_t)height >= MAINNET_HARDFORK_V6_HEIGHT-10 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + 1){
+  // Reset network hashrate to 1.0 Hz until hardfork v2 comes
+  if (version == 1 || (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + 1){
     return (difficulty_type) 100;
   }
   // Reset network hashrate to 333.0 MHz when hardfork v2 comes
-  if ((uint64_t) height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t) height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t) difficulty_blocks_count){
-    return (difficulty_type) 20060448096;
+  if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)difficulty_blocks_count){
+    return (difficulty_type) 19924656977;
   }
 
 
