@@ -259,12 +259,11 @@ endif()
 
 if (BUILD_SHARED_LIBS)
   message(STATUS "Building internal libraries with position independent code")
-  set(PIC_FLAG "-fPIC")
   add_definitions("-DBUILD_SHARED_LIBS")
 else()
   message(STATUS "Building internal libraries as static")
 endif()
-
+set(PIC_FLAG "-fPIC")
 
 if(MINGW)
   string(REGEX MATCH "^[^/]:/[^/]*" msys2_install_path "${CMAKE_C_COMPILER}")
@@ -546,6 +545,12 @@ else()
     set(C_SECURITY_FLAGS "${C_SECURITY_FLAGS} -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1")
     set(CXX_SECURITY_FLAGS "${CXX_SECURITY_FLAGS} -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1")
   endif()
+
+  # -fstack-protector	
+  add_c_flag_if_supported(-fstack-protector C_SECURITY_FLAGS)	
+  add_cxx_flag_if_supported(-fstack-protector CXX_SECURITY_FLAGS)	
+  add_c_flag_if_supported(-fstack-protector-strong C_SECURITY_FLAGS)	
+  add_cxx_flag_if_supported(-fstack-protector-strong CXX_SECURITY_FLAGS)	
 
   # warnings
   add_c_flag_if_supported(-Wformat C_SECURITY_FLAGS)
