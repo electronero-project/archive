@@ -139,7 +139,7 @@
 #define HF_VERSION_MIN_MIXIN_6                  7
 #define HF_VERSION_ENFORCE_RCT                  6
 
-#define PER_KB_FEE_QUANTIZATION_DECIMALS        2
+#define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
 #define HASH_OF_HASHES_STEP                     256
 
@@ -151,7 +151,7 @@ namespace config
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5; // Just a placeholder!  Change me!
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
   uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2); // 2 * pow(10, 1)
-  uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)10); // pow(10, 8)
+  uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
