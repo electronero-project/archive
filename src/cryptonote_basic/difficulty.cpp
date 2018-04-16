@@ -129,10 +129,10 @@ namespace cryptonote {
 
     size_t length = timestamps.size();
     assert(length == cumulative_difficulties.size());
-    // Wind down block diff to ease upcoming fork resistance, this will return diff of 1000 for blocks < 179723. 
-    // Diff stabilize once block 179723 is mined and algo will track diff and target solve post fork.
-    if (length <= 1 || length <= 179723) {
-      return 1000;
+    // Wind down block diff to ease upcoming fork resistance, this will return diff of 100 for blocks < 241499. 
+    // Diff stabilize once block 241499 is mined and algo will track diff and target solve post fork.
+    if (length <= 1 || length <= 241499) {
+      return 100;
     }
     static_assert(DIFFICULTY_WINDOW >= 2, "Window is too small");
     assert(length <= DIFFICULTY_WINDOW);
