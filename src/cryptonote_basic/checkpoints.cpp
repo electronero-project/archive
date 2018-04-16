@@ -193,10 +193,10 @@ namespace cryptonote
   {
     std::vector<std::string> records;
 
-    // All four ElectroneumPulse domains have DNSSEC on and valid
-    static const std::vector<std::string> dns_urls = { "checkpoints.electroneum.com" };
+    // ElectroneroPulse domains have DNSSEC on and valid
+    static const std::vector<std::string> dns_urls = { "checkpoints.electroneropulse.com" };
 
-    static const std::vector<std::string> testnet_dns_urls = { "testpoints.electroneum.com" };
+    static const std::vector<std::string> testnet_dns_urls = { "testpoints.electroneropulse.com" };
 
     if (!tools::dns_utils::load_txt_records_from_dns(records, testnet ? testnet_dns_urls : dns_urls))
       return true; // why true ?
