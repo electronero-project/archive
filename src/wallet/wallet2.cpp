@@ -109,9 +109,6 @@ using namespace cryptonote;
 
 #define MULTISIG_EXPORT_FILE_MAGIC "Monero multisig export\001"
 
-#define SEGREGATION_FORK_HEIGHT 1564965
-#define TESTNET_SEGREGATION_FORK_HEIGHT 1000000
-#define STAGENET_SEGREGATION_FORK_HEIGHT 1000000
 #define SEGREGATION_FORK_VICINITY 1500 /* blocks */
 
 
@@ -120,9 +117,9 @@ namespace
   std::string get_default_ringdb_path()
   {
     boost::filesystem::path dir = tools::get_default_data_dir();
-    // remove .bitmonero, replace with .shared-ringdb
+    // remove .electronero, replace with .ringdb
     dir = dir.remove_filename();
-    dir /= ".shared-ringdb";
+    dir /= config::RINGDB_DIR; // RINGDB_DIR in config
     return dir.string();
   }
 }
@@ -5777,9 +5774,9 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
     uint64_t segregation_fork_height;
     switch (m_nettype)
     {
-      case TESTNET: segregation_fork_height = TESTNET_SEGREGATION_FORK_HEIGHT; break;
-      case STAGENET: segregation_fork_height = STAGENET_SEGREGATION_FORK_HEIGHT; break;
-      case MAINNET: segregation_fork_height = SEGREGATION_FORK_HEIGHT; break;
+      case TESTNET: segregation_fork_height = config::testnet::TESTNET_SEGREGATION_FORK_HEIGHT; break;
+      case STAGENET: segregation_fork_height = config::stagenet::STAGENET_SEGREGATION_FORK_HEIGHT; break;
+      case MAINNET: segregation_fork_height = config::SEGREGATION_FORK_HEIGHT; break;
       default: THROW_WALLET_EXCEPTION(error::wallet_internal_error, "Invalid network type");
     }
     // check whether we're shortly after the fork
