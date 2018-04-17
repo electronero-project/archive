@@ -106,11 +106,11 @@ namespace cryptonote {
     
     // project bonus for dev team. 
     if (version == 6 && median_size > 0 && already_generated_coins < bonus_round) {
-       base_reward = bonus_magic; // reward project bonus_magic
+       base_reward = bonus_round; // reward project bonus_magic
        reward = base_reward; 
        return true;
      }    
-     
+   
     // bonus rewarded to miners for fork efforts.
     if (version == 7 && median_size > 0 && already_generated_coins < bonus_round) {
        base_reward = bonus; // reward bonus to miners 
