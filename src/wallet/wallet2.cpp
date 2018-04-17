@@ -109,8 +109,6 @@ using namespace cryptonote;
 
 #define MULTISIG_EXPORT_FILE_MAGIC "Monero multisig export\001"
 
-#define SEGREGATION_FORK_VICINITY 1500 /* blocks */
-
 
 namespace
 {
@@ -5783,7 +5781,7 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
     uint64_t height;
     boost::optional<std::string> result = m_node_rpc_proxy.get_height(height);
     throw_on_rpc_response_error(result, "get_info");
-    bool is_shortly_after_segregation_fork = height >= segregation_fork_height && height < segregation_fork_height + SEGREGATION_FORK_VICINITY;
+    bool is_shortly_after_segregation_fork = height >= segregation_fork_height && height < segregation_fork_height + config::SEGREGATION_FORK_VICINITY;
 
     // get histogram for the amounts we need
     cryptonote::COMMAND_RPC_GET_OUTPUT_HISTOGRAM::request req_t = AUTO_VAL_INIT(req_t);
@@ -5814,6 +5812,7 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
       auto end = std::unique(req_t.amounts.begin(), req_t.amounts.end());
       req_t.amounts.resize(std::distance(req_t.amounts.begin(), end));
       req_t.from_height = segregation_fork_height >= RECENT_OUTPUT_ZONE ? height >= (segregation_fork_height ? segregation_fork_height : height) - RECENT_OUTPUT_BLOCKS : 0;
+      req_t.to_height = segregation_fork_height + 10000;
       req_t.cumulative = true;
       m_daemon_rpc_mutex.lock();
       bool r = net_utils::invoke_http_json_rpc("/json_rpc", "get_output_distribution", req_t, resp_t, m_http_client, rpc_timeout);
