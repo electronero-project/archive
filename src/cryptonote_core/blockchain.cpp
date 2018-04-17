@@ -58,12 +58,13 @@
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
-#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241501))
 #define MAINNET_HARDFORK_V3_HEIGHT  ((uint64_t)(239950))
 #define MAINNET_HARDFORK_V4_HEIGHT  ((uint64_t)(239960))
 #define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239970))
 #define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239930))
 #define MAINNET_HARDFORK_V7_HEIGHT  ((uint64_t)(239949))
+#define ELECTRONERO_HARDFORK  ((uint64_t)(239930))
 #define ELECTRONERO_HARDFORK_HEIGHT  ((uint64_t)(239921))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -98,18 +99,18 @@ static const struct {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1341378000 },
   // version 2 starts from block 241499, which is on or around the 14th of April, 2018. No fork voting occurs for the v2 fork.
-//   { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523732841 },
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1523732841 },
 //   // versions 3-6 are to be passed in rapid succession from Febryary 18th, 2018.
 //   { 3, 84006, 0, 1518921689 },
 //   // versions 4-6 enable ring signatures.
 //   { 4, 84012, 0, 1518922948 },
 //   { 5, 84024, 0, 1518925063 },
 //   // versions 6+ ring signatures are required, minimum 5 RCT enforced from here on.
-  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523733641 },
+//   { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1523733641 },
 //   // version 7 starts from block 1539500, which is on or around the 28th of March, 2018. Fork time finalised on 2018-03-07.
 //   { 7, 125000, 0, 1521362912 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V6_HEIGHT-1;
+static const uint64_t mainnet_hard_fork_version_1_till = ELECTRONERO_HARDFORK-1;
 
 static const struct {
   uint8_t version;
@@ -762,7 +763,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     return (difficulty_type) 100;
   }
   // Reset network hashrate to 333.0 MHz when hardfork v2 comes
-  if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)difficulty_blocks_count){
+  if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 2 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)difficulty_blocks_count){
     return (difficulty_type) 19924656977;
   }
 
