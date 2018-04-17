@@ -149,8 +149,9 @@
 // New constants are intended to go here
 namespace config
 {
-  std::string const RINGDB_DIR = ".ringdb";
-  uint64_t const SEGREGATION_FORK_HEIGHT 241501;
+  uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
+  std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb path
+  uint64_t const SEGREGATION_FORK_HEIGHT = 241501; 
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5; // Just a placeholder!  Change me!
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
   uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2); // 2 * pow(10, 1)
@@ -171,7 +172,7 @@ namespace config
 
   namespace testnet
   {
-    uint64_t const TESTNET_SEGREGATION_FORK_HEIGHT 1000000;
+    uint64_t const TESTNET_SEGREGATION_FORK_HEIGHT = 1000000;
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
@@ -187,7 +188,7 @@ namespace config
 
   namespace stagenet
   {
-    uint64_t const STAGENET_SEGREGATION_FORK_HEIGHT 1000000;
+    uint64_t const STAGENET_SEGREGATION_FORK_HEIGHT = 1000000;
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 47231;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 25;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 36;
