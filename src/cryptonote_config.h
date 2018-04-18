@@ -52,7 +52,7 @@
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(2100000000000))
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 11)
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 0)
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2    60000 //size of block (bytes) after which reward for block calculated using block size
@@ -61,17 +61,18 @@
 #define CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE          600
 #define CRYPTONOTE_DISPLAY_DECIMAL_POINT                2
 // COIN - number of smallest units in one coin
-#define COIN                                            ((uint64_t)1) // pow(10, 1)
+#define COIN                                            ((uint64_t)100) // pow(10, 2)
 
 #define CRYPTONOTE_TX_FEE_RESERVED_SIZE               3
-#define CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5           6
+#define CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5           9
 
-#define FEE_PER_KB_OLD                                  ((uint64_t)1) // 1 * pow(10, 1)
-#define FEE_PER_KB_V2                                   ((uint64_t)4) // 2 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)2) // 2 * pow(10, 1)
-#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2) // 2 * pow(10, 1)
-#define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)3) // 3 * pow(10, 1)
-#define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
+#define FEE_PER_KB_OLD                                  ((uint64_t)10) // .1 * pow(10, 1)
+#define FEE_PER_KB_V2                                   ((uint64_t)40) // .2 * pow(10, 1)
+#define FEE_PER_KB                                      ((uint64_t)20) // .2 * pow(10, 1)
+#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)20) // .2 * pow(10, 1)
+#define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)30) // .3 * pow(10, 1)
+#define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)20 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
+
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
 
 #define DIFFICULTY_TARGET_V1                            60  // seconds - before first fork
@@ -153,29 +154,29 @@ namespace config
   std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
+  uint16_t const MIN_WANTED_SEED_NODES = 6; // seeds
+  uint64_t const ELECTRONERO_HARDFORK = ((uint64_t)239930); // first planned fork
+  uint64_t const ELECTRONERO_HARDFORK_HEIGHT = ((uint64_t)239921); // initial fork height
   
-  uint64_t const ELECTRONERO_HARDFORK = ((uint64_t)(239930)); // first planned fork
-  uint64_t const ELECTRONERO_HARDFORK_HEIGHT = ((uint64_t)(239921)); // initial fork height
+  uint32_t const MAINNET_HARDFORK_V1_HEIGHT = ((uint32_t)1); // v1
+  uint32_t const MAINNET_HARDFORK_V2_HEIGHT = ((uint32_t)239965); // v2
+  uint32_t const MAINNET_HARDFORK_V3_HEIGHT = ((uint32_t)239970); // v3
+  uint32_t const MAINNET_HARDFORK_V4_HEIGHT = ((uint32_t)239975); // v4
+  uint32_t const MAINNET_HARDFORK_V5_HEIGHT = ((uint32_t)239980); // v5
+  uint32_t const MAINNET_HARDFORK_V6_HEIGHT = ((uint32_t)239930); // v6
+  uint32_t const MAINNET_HARDFORK_V7_HEIGHT = ((uint32_t)239949); // v7
+  uint32_t const MAINNET_HARDFORK_V8_HEIGHT = ((uint32_t)239960); // v8
   
-  uint16_t const MAINNET_HARDFORK_V1_HEIGHT = ((uint64_t)(1)); // v1
-  uint16_t const MAINNET_HARDFORK_V2_HEIGHT = ((uint64_t)(239965)); // v2
-  uint16_t const MAINNET_HARDFORK_V3_HEIGHT = ((uint64_t)(239970)); // v3
-  uint16_t const MAINNET_HARDFORK_V4_HEIGHT = ((uint64_t)(239975)); // v4
-  uint16_t const MAINNET_HARDFORK_V5_HEIGHT = ((uint64_t)(239980)); // v5
-  uint16_t const MAINNET_HARDFORK_V6_HEIGHT = ((uint64_t)(239930)); // v6
-  uint16_t const MAINNET_HARDFORK_V7_HEIGHT = ((uint64_t)(239949)); // v7
-  uint16_t const MAINNET_HARDFORK_V8_HEIGHT = ((uint64_t)(239960)); // v8
-  
-  uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5; // Just a placeholder!  Change me!
+  uint8_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
-  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2); // 2 * pow(10, 1)
+  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)20); // .2 * pow(10, 1)
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 26967;
+  uint16_t const P2P_DEFAULT_PORT = 26976;
   uint16_t const RPC_DEFAULT_PORT = 26968;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 26969;
   boost::uuids::uuid const NETWORK_ID = { {
