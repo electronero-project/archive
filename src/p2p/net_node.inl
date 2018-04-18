@@ -65,8 +65,6 @@
 
 #define NET_MAKE_IP(b1,b2,b3,b4)  ((LPARAM)(((DWORD)(b1)<<24)+((DWORD)(b2)<<16)+((DWORD)(b3)<<8)+((DWORD)(b4))))
 
-#define MIN_WANTED_SEED_NODES 12
-
 namespace nodetool
 {
   //-----------------------------------------------------------------------------------
@@ -398,12 +396,12 @@ namespace nodetool
     }
     else
     {
-      full_addrs.insert("159.203.28.200:26967");
-      full_addrs.insert("128.199.85.61:26967");
-      full_addrs.insert("138.68.175.185:26967");
-      full_addrs.insert("167.99.228.39:26967");
-      full_addrs.insert("144.202.59.175:26967");
-      full_addrs.insert("45.77.238.34:26967");
+      full_addrs.insert("159.203.28.200:26976");
+      full_addrs.insert("128.199.85.61:26976");
+      full_addrs.insert("138.68.175.185:26976");
+      full_addrs.insert("167.99.228.39:26976");
+      full_addrs.insert("144.202.59.175:26976");
+      full_addrs.insert("45.77.238.34:26976");
     }
     return full_addrs;
   }
@@ -495,13 +493,13 @@ namespace nodetool
         if (result.size())
         {
           for (const auto& addr_string : result)
-            full_addrs.insert(addr_string + ":26967");
+            full_addrs.insert(addr_string + ":26976");
         }
         ++i;
       }
 
       // append the fallback nodes if we have too few seed nodes to start with
-      if (full_addrs.size() < MIN_WANTED_SEED_NODES)
+      if (full_addrs.size() < config::MIN_WANTED_SEED_NODES)
       {
         if (full_addrs.empty())
           MINFO("DNS seed node lookup either timed out or failed, falling back to defaults");
