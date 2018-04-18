@@ -63,15 +63,16 @@
 // COIN - number of smallest units in one coin
 #define COIN                                            ((uint64_t)1) // pow(10, 1)
 
+#define CRYPTONOTE_TX_FEE_RESERVED_SIZE               3
+#define CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5           6
+
 #define FEE_PER_KB_OLD                                  ((uint64_t)1) // 1 * pow(10, 1)
-#define FEE_PER_KB_V2                                   ((uint64_t)2) // 2 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)1) // 1 * pow(10, 1)
+#define FEE_PER_KB_V2                                   ((uint64_t)4) // 2 * pow(10, 1)
+#define FEE_PER_KB                                      ((uint64_t)2) // 2 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2) // 2 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)3) // 3 * pow(10, 1)
-#define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2 * (uint64_t)CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2 / CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V5)
+#define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
-
-
 
 #define DIFFICULTY_TARGET_V1                            60  // seconds - before first fork
 #define DIFFICULTY_WINDOW                               720 // blocks
@@ -140,7 +141,7 @@
 #define HF_VERSION_MIN_MIXIN_6                  7
 #define HF_VERSION_ENFORCE_RCT                  6
 
-#define PER_KB_FEE_QUANTIZATION_DECIMALS        8
+#define PER_KB_FEE_QUANTIZATION_DECIMALS        1
 
 #define HASH_OF_HASHES_STEP                     256
 
