@@ -95,7 +95,7 @@ uint64_t test_generator::get_already_generated_coins(const cryptonote::block& bl
   return get_already_generated_coins(blk_hash);
 }
 
-void test_generator::add_block(const cryptonote::block& blk, size_t tsx_size, std::vector<size_t>& block_sizes, uint64_t already_generated_coins, uint8_t hf_version)
+void test_generator::add_block(const cryptonote::block& blk, size_t tsx_size, std::vector<size_t>& block_sizes, uint64_t already_generated_coins, uint8_t hf_version, uint64_t height)
 {
   const size_t block_size = tsx_size + get_object_blobsize(blk.miner_tx);
   uint64_t block_reward;
@@ -533,7 +533,7 @@ bool construct_miner_tx_manually(size_t height, uint64_t already_generated_coins
 
   // This will work, until size of constructed block is less then CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE
   uint64_t block_reward;
-  if (!get_block_reward(0, 0, already_generated_coins, block_reward, 1))
+  if (!get_block_reward(0, 0, already_generated_coins, block_reward, 1, 0))
   {
     LOG_PRINT_L0("Block is too big");
     return false;
