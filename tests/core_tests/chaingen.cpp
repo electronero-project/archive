@@ -183,7 +183,7 @@ bool test_generator::construct_block(cryptonote::block& blk, uint64_t height, co
   while (!miner::find_nonce_for_given_block(blk, get_test_difficulty(), height))
     blk.timestamp++;
 
-  add_block(blk, txs_sizes, block_sizes, already_generated_coins);
+  add_block(blk, txs_size, block_sizes, already_generated_coins);
 
   return true;
 }
@@ -246,7 +246,7 @@ bool test_generator::construct_block_manually(block& blk, const block& prev_bloc
   difficulty_type a_diffic = actual_params & bf_diffic ? diffic : get_test_difficulty();
   fill_nonce(blk, a_diffic, height);
 
-  add_block(blk, txs_size, block_sizes, already_generated_coins);
+  add_block(blk, txs_sizes, block_sizes, already_generated_coins, hf_version, height);
 
   return true;
 }
