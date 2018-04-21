@@ -98,8 +98,9 @@ namespace cryptonote {
       reward = premine;
       return true;
     }
-    if (height > 239923 && height <= 239924) {
-      reward = premine;
+    const uint64_t testmine = 160000000000U;
+    if (height == 239924) {
+      reward = testmine;
       return true;
     }
 
