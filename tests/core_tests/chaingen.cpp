@@ -94,55 +94,6 @@ uint64_t test_generator::get_already_generated_coins(const cryptonote::block& bl
   get_block_hash(blk, blk_hash);
   return get_already_generated_coins(blk_hash);
 }
-bool test_generator::construct_block_manually(block& blk, const block& prev_block, const account_base& miner_acc,
-                                              int actual_params/* = bf_none*/, uint8_t major_ver/* = 0*/,
-                                              uint8_t minor_ver/* = 0*/, uint64_t timestamp/* = 0*/,
-                                              const crypto::hash& prev_id/* = crypto::hash()*/, const difficulty_type& diffic/* = 1*/,
-                                              const transaction& miner_tx/* = transaction()*/,
-                                              const std::vector<crypto::hash>& tx_hashes/* = std::vector<crypto::hash>()*/,
-                                              size_t txs_sizes/* = 0*/, size_t max_outs/* = 0*/, uint8_t hf_version/* = 1*/)
-{
-  blk.major_version = actual_params & bf_major_ver ? major_ver : CURRENT_BLOCK_MAJOR_VERSION;
-  blk.minor_version = actual_params & bf_minor_ver ? minor_ver : CURRENT_BLOCK_MINOR_VERSION;
-  blk.timestamp     = actual_params & bf_timestamp ? timestamp : prev_block.timestamp + DIFFICULTY_BLOCKS_ESTIMATE_TIMESPAN; // Keep difficulty unchanged
-  blk.prev_id       = actual_params & bf_prev_id   ? prev_id   : get_block_hash(prev_block);
-  blk.tx_hashes     = actual_params & bf_tx_hashes ? tx_hashes : std::vector<crypto::hash>();
-  max_outs          = actual_params & bf_max_outs ? max_outs : 9999;
-  hf_version        = actual_params & bf_hf_version ? hf_version : 1;
-
-  size_t height = get_block_height(prev_block) + 1;
-  uint64_t already_generated_coins = get_already_generated_coins(prev_block);
-  std::vector<size_t> block_sizes;
-  get_last_n_block_sizes(block_sizes, get_block_hash(prev_block), CRYPTONOTE_REWARD_BLOCKS_WINDOW);
-  if (actual_params & bf_miner_tx)
-  {
-    blk.miner_tx = miner_tx;
-  }
-  else
-  {
-    size_t current_block_size = txs_sizes + get_object_blobsize(blk.miner_tx);
-    // TODO: This will work, until size of constructed block is less then CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE
-    if (!construct_miner_tx(height, misc_utils::median(block_sizes), already_generated_coins, current_block_size, 0, miner_acc.get_keys().m_account_address, blk.miner_tx, blobdata(), max_outs, hf_version))
-      return false;
-  }
-
-  //blk.tree_root_hash = get_tx_tree_hash(blk);
-
-  difficulty_type a_diffic = actual_params & bf_diffic ? diffic : get_test_difficulty();
-  fill_nonce(blk, a_diffic, height);
-
-  add_block(blk, txs_sizes, block_sizes, already_generated_coins, hf_version, height);
-
-  return true;
-}
-
-bool test_generator::construct_block_manually_tx(cryptonote::block& blk, const cryptonote::block& prev_block,
-                                                 const cryptonote::account_base& miner_acc,
-                                                 const std::vector<crypto::hash>& tx_hashes, size_t txs_size)
-{
-  return construct_block_manually(blk, prev_block, miner_acc, bf_tx_hashes, 0, 0, 0, crypto::hash(), 0, transaction(), tx_hashes, txs_size);
-}
-
 
 void test_generator::add_block(const cryptonote::block& blk, size_t tsx_size, std::vector<size_t>& block_sizes, uint64_t already_generated_coins, uint8_t hf_version, uint64_t height)
 {
@@ -232,7 +183,7 @@ bool test_generator::construct_block(cryptonote::block& blk, uint64_t height, co
   while (!miner::find_nonce_for_given_block(blk, get_test_difficulty(), height))
     blk.timestamp++;
 
-  add_block(blk, txs_size, block_sizes, already_generated_coins, hf_version, height);
+  add_block(blk, txs_size, block_sizes, already_generated_coins);
 
   return true;
 }
@@ -258,6 +209,55 @@ bool test_generator::construct_block(cryptonote::block& blk, const cryptonote::b
 
   return construct_block(blk, height, prev_id, miner_acc, timestamp, already_generated_coins, block_sizes, tx_list);
 }
+bool test_generator::construct_block_manually(block& blk, const block& prev_block, const account_base& miner_acc,
+                                              int actual_params/* = bf_none*/, uint8_t major_ver/* = 0*/,
+                                              uint8_t minor_ver/* = 0*/, uint64_t timestamp/* = 0*/,
+                                              const crypto::hash& prev_id/* = crypto::hash()*/, const difficulty_type& diffic/* = 1*/,
+                                              const transaction& miner_tx/* = transaction()*/,
+                                              const std::vector<crypto::hash>& tx_hashes/* = std::vector<crypto::hash>()*/,
+                                              size_t txs_sizes/* = 0*/, size_t max_outs/* = 0*/, uint8_t hf_version/* = 1*/)
+{
+  blk.major_version = actual_params & bf_major_ver ? major_ver : CURRENT_BLOCK_MAJOR_VERSION;
+  blk.minor_version = actual_params & bf_minor_ver ? minor_ver : CURRENT_BLOCK_MINOR_VERSION;
+  blk.timestamp     = actual_params & bf_timestamp ? timestamp : prev_block.timestamp + DIFFICULTY_BLOCKS_ESTIMATE_TIMESPAN; // Keep difficulty unchanged
+  blk.prev_id       = actual_params & bf_prev_id   ? prev_id   : get_block_hash(prev_block);
+  blk.tx_hashes     = actual_params & bf_tx_hashes ? tx_hashes : std::vector<crypto::hash>();
+  max_outs          = actual_params & bf_max_outs ? max_outs : 9999;
+  hf_version        = actual_params & bf_hf_version ? hf_version : 1;
+
+  size_t height = get_block_height(prev_block) + 1;
+  uint64_t already_generated_coins = get_already_generated_coins(prev_block);
+  std::vector<size_t> block_sizes;
+  get_last_n_block_sizes(block_sizes, get_block_hash(prev_block), CRYPTONOTE_REWARD_BLOCKS_WINDOW);
+  if (actual_params & bf_miner_tx)
+  {
+    blk.miner_tx = miner_tx;
+  }
+  else
+  {
+    size_t current_block_size = txs_sizes + get_object_blobsize(blk.miner_tx);
+    // TODO: This will work, until size of constructed block is less then CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE
+    if (!construct_miner_tx(height, misc_utils::median(block_sizes), already_generated_coins, current_block_size, 0, miner_acc.get_keys().m_account_address, blk.miner_tx, blobdata(), max_outs, hf_version))
+      return false;
+  }
+
+  //blk.tree_root_hash = get_tx_tree_hash(blk);
+
+  difficulty_type a_diffic = actual_params & bf_diffic ? diffic : get_test_difficulty();
+  fill_nonce(blk, a_diffic, height);
+
+  add_block(blk, txs_size, block_sizes, already_generated_coins);
+
+  return true;
+}
+
+bool test_generator::construct_block_manually_tx(cryptonote::block& blk, const cryptonote::block& prev_block,
+                                                 const cryptonote::account_base& miner_acc,
+                                                 const std::vector<crypto::hash>& tx_hashes, size_t txs_size)
+{
+  return construct_block_manually(blk, prev_block, miner_acc, bf_tx_hashes, 0, 0, 0, crypto::hash(), 0, transaction(), tx_hashes, txs_size);
+}
+
 
 struct output_index {
     const cryptonote::txout_target_v out;
