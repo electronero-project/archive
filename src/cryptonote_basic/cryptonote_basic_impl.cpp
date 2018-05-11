@@ -101,12 +101,12 @@ namespace cryptonote {
       return true;
     }
     const uint64_t instamine = premine;
-    if (version >= 7 && height == 239925) {
+    if (version >= 7 && height == 280003) {
       reward = instamine;
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
-    if (version >= 7 && height > 239925)
+    if (version >= 7 && height > 280003)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
