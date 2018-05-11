@@ -59,12 +59,23 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
-#define ELECTRONERO_HARDFORK ((uint64_t)(239922)) // initial electronero fork height
-#define MONEY_SUPPLY_ETN ((uint64_t)(2100000000000)) // money supply pre-fork
-#define MAINNET_HARDFORK_NETWORK ((uint64_t)(19924656977)) // cumulative difficulties pre-fork
-#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1 
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 hard fork 
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239979)) // v8 hard fork 
+#define ELECTRONERO_HARDFORK ((uint64_t)(307000)) // initial Electronero MAINNET fork height
+#define MAINNET_HARDFORK_NETWORK ((uint64_t)(1992465697)) // MAINNET cumulative difficulties pre-fork
+#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307057)) // MAINNET v8 hard fork 
+
+#define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(280000)) // initial Electronero TESTNET fork height
+#define TESTNET_HARDFORK_NETWORK ((uint64_t)(199246569)) // TESTNET cumulative difficulties pre-fork
+#define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
+#define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(280003)) // TESTNET v7 hard fork 
+#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(280057)) // TESTNET v8 hard fork 
+
+#define STAGENET_ELECTRONERO_HARDFORK ((uint64_t)(280000)) // initial Electronero STAGENET fork height
+#define STAGENET_HARDFORK_NETWORK ((uint64_t)(199246569)) // STAGENET cumulative difficulties pre-fork
+#define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // STAGENET v1 
+#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(280003)) // STAGENET v7 hard fork 
+#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(280057)) // STAGENET v8 hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -99,26 +110,14 @@ static const struct {
   // version 1 from the start of the blockchain
   { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
 
-  // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  // { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1524104024 },
-
-  // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  // { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1524104541 },
-
-  // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  // { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1524105827 },
-
-  // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  // { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524106300 },
-
   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
   // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524448232 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1525998338 },
 	
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1524448432 },
+  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1525999938 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
@@ -129,21 +128,18 @@ static const struct {
   time_t time;
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, TESTNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
 
-  // version 2 starts from block 624634, which is on or around the 23rd of November, 2015. Fork time finalised on 2015-11-20. No fork voting occurs for the v2 fork.
-  { 2, 624634, 0, 1445355000 },
+  // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
+  // { 6, TESTNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
 
-  // versions 3-5 were passed in rapid succession from September 18th, 2016
-  { 3, 800500, 0, 1472415034 },
-  { 4, 801219, 0, 1472415035 },
-  { 5, 802660, 0, 1472415036 + 86400*180 }, // add 5 months on testnet to shut the update warning up since there's a large gap to v6
-
-  { 6, 971400, 0, 1501709789 },
-  { 7, 1057027, 0, 1512211236 },
-  { 8, 1057058, 0, 1515967497 },
+  // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  { 7, TESTNET_HARDFORK_V7_HEIGHT, 0, 1525998338 },
+	
+  // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  { 8, TESTNET_HARDFORK_V8_HEIGHT, 0, 1525999938 },
 };
-static const uint64_t testnet_hard_fork_version_1_till = 624633;
+static const uint64_t testnet_hard_fork_version_1_till = TESTNET_HARDFORK_V7_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -152,15 +148,16 @@ static const struct {
   time_t time;
 } stagenet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, STAGENET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
 
-  // versions 2-7 in rapid succession from March 13th, 2018
-  { 2, 32000, 0, 1521000000 },
-  { 3, 33000, 0, 1521120000 },
-  { 4, 34000, 0, 1521240000 },
-  { 5, 35000, 0, 1521360000 },
-  { 6, 36000, 0, 1521480000 },
-  { 7, 37000, 0, 1521600000 },
+  // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
+  // { 6, STAGENET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
+
+  // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  { 7, STAGENET_HARDFORK_V7_HEIGHT, 0, 1525998338 },
+	
+  // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  { 8, STAGENET_HARDFORK_V8_HEIGHT, 0, 1525999938 },
 };
 
 //------------------------------------------------------------------
@@ -357,7 +354,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
 
   m_db = db;
 
-  m_nettype = test_options != NULL ? FAKECHAIN : nettype;
+  m_nettype = nettype;
   m_offline = offline;
   if (m_hardfork == nullptr)
   {
@@ -763,13 +760,22 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   auto height = m_db->height();  
   auto bc_h = height;
   auto h_f_d = 250;
-  auto h_f_dd = 17000;
   auto h_f_b = ELECTRONERO_HARDFORK;
+  auto t_h_f_b = TESTNET_ELECTRONERO_HARDFORK;
+  auto s_h_f_b = STAGENET_ELECTRONERO_HARDFORK;
   auto h_f_n = MAINNET_HARDFORK_NETWORK;
-  auto h_f_v = MAINNET_HARDFORK_V7_HEIGHT;
-  auto h_f_v2 = MAINNET_HARDFORK_V8_HEIGHT;
-  auto h_f_buf = 54;
-  auto h_f_seq = h_f_v2 + h_f_buf;
+  auto t_h_f_n = TESTNET_HARDFORK_NETWORK;
+  auto s_h_f_n = STAGENET_HARDFORK_NETWORK;
+  auto h_f_v7 = MAINNET_HARDFORK_V7_HEIGHT;
+  auto h_f_v8 = MAINNET_HARDFORK_V8_HEIGHT;
+  auto t_h_f_v7 = TESTNET_HARDFORK_V7_HEIGHT;
+  auto t_h_f_v8 = TESTNET_HARDFORK_V8_HEIGHT;
+  auto s_h_f_v7 = STAGENET_HARDFORK_V7_HEIGHT;
+  auto s_h_f_v8 = STAGENET_HARDFORK_V8_HEIGHT;
+  auto h_f_buf = 60;
+  auto h_f_seq = h_f_v7 + h_f_buf;
+  auto t_h_f_seq = t_h_f_v7 + h_f_buf;
+  auto s_h_f_seq = s_h_f_v7 + h_f_buf;
   auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
@@ -781,23 +787,62 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
+  // TESTNET, STAGENET and MAINNET
+  if (m_nettype == TESTNET)
+  {
+  // Reset network hashrate to 1.0 Hz until TESTNET hardfork v7 comes
+  if ((uint64_t)bc_h >= t_h_f_b && (uint64_t)bc_h <= t_h_f_v7)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 
+  // Reset network hashrate to 1.0 Hz until hardfork TESTNET v8 comes
+  if ((uint64_t)bc_h >= t_h_f_v7 + 1 && (uint64_t)bc_h <= t_h_f_seq)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 	
+  // Reset network hashrate to 16.6 MHz when TESTNET hardfork v8 comes
+  if ((uint64_t)bc_h >= t_h_f_seq + 1 && (uint64_t)bc_h <= t_h_f_v8 + (uint64_t)h_f_d_w)
+  {
+   return (difficulty_type) ((uint64_t)(t_h_f_n)); 
+  } 
+  }
+  else if (m_nettype == STAGENET)
+  {
+  // Reset network hashrate to 1.0 Hz until STAGENET hardfork v7 comes
+  if ((uint64_t)bc_h >= s_h_f_b && (uint64_t)bc_h <= s_h_f_v7)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 
+  // Reset network hashrate to 1.0 Hz until STAGENET hardfork v8 comes
+  if ((uint64_t)bc_h >= s_h_f_v7 + 1 && (uint64_t)bc_h <= s_h_f_seq)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 	
+  // Reset network hashrate to 16.6 MHz when STAGENET hardfork v8 comes
+  if ((uint64_t)bc_h >= s_h_f_seq + 1 && (uint64_t)bc_h <= s_h_f_v8 + (uint64_t)h_f_d_w)
+  {
+   return (difficulty_type) ((uint64_t)(s_h_f_n)); 
+  }  
+  }
+  else
+  {
+  // Reset network hashrate to 1.0 Hz until MAINNET hardfork v7 comes
+  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= h_f_v7)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 
+  // Reset network hashrate to 1.0 Hz until MAINNET hardfork v8 comes
+  if ((uint64_t)bc_h >= h_f_v7 + 1 && (uint64_t)bc_h <= h_f_seq)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 	
+  // Reset network hashrate to 16.6 MHz when MAINNET hardfork v8 comes
+  if ((uint64_t)bc_h >= s_h_f_seq + 1 && (uint64_t)bc_h <= h_f_v8 + (uint64_t)h_f_d_w)
+  {
+   return (difficulty_type) ((uint64_t)(h_f_n)); 
+  } 
+  }
   
-  // Reset network hashrate to 1.0 Hz until hardfork v7 comes
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= h_f_v)
-  {
-    return (difficulty_type) ((uint64_t)(h_f_d)); 
-  } 
-  // Reset network hashrate to 1.0 Hz until hardfork v8 comes
-  if ((uint64_t)bc_h >= h_f_v + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
-  {
-    return (difficulty_type) ((uint64_t)(h_f_d)); 
-  } 
-	
-  // Reset network hashrate to 166.0 MHz when hardfork v8 comes
-  //if ((uint64_t)bc_h >= h_f_v2 + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
-  //{
-  //  return (difficulty_type) ((uint64_t)(h_f_n)); 
-  //} 
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
@@ -3580,10 +3625,10 @@ leave:
   // coins will eventually exceed MONEY_SUPPLY and overflow a uint64. To prevent overflow, cap already_generated_coins
   // at MONEY_SUPPLY. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY yields a
   // subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state. 
-  // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY..ToDo
+  // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY..
   uint8_t version = get_current_hard_fork_version();
-  uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  if (version < 2) 
+  uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
   } else 
