@@ -108,7 +108,7 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
+  { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1509360534 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
   // { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1524104024 },
@@ -140,7 +140,7 @@ static const struct {
   time_t time;
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 1, 0, 1509360534 },
   { 7, TESTNET_HARDFORK_V7_HEIGHT, 0, 1526030397 },
   { 8, TESTNET_HARDFORK_V8_HEIGHT, 0, 1526030997 },
 };
@@ -153,7 +153,7 @@ static const struct {
   time_t time;
 } stagenet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 1, 0, 1509360534 },
   { 6, STAGENET_HARDFORK_V8_HEIGHT, 0, 1521480000 },
   { 7, STAGENET_HARDFORK_V8_HEIGHT, 0, 1521600000 },
 };
@@ -423,21 +423,19 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   uint64_t top_block_timestamp = m_db->get_top_block_timestamp();
   uint64_t timestamp_diff = time(NULL) - top_block_timestamp;
 
-  // genesis block has no timestamp, could probably change it to have timestamp of 1341378000...
+  // genesis block has no timestamp, could probably change it to have timestamp of 1509360534...
   if(!top_block_timestamp)
-    timestamp_diff = time(NULL) - 1341378000;
+    timestamp_diff = time(NULL) - 1509360534;
 
   // create general purpose async service queue
 
   m_async_work_idle = std::unique_ptr < boost::asio::io_service::work > (new boost::asio::io_service::work(m_async_service));
   // we only need 1
   m_async_pool.create_thread(boost::bind(&boost::asio::io_service::run, &m_async_service));
-/// off for now, until we remake blocks.dat
-// #if defined(PER_BLOCK_CHECKPOINT)
-//   if (m_nettype != FAKECHAIN)
-// 	m_db->set_batch_transactions(true);
-//     load_compiled_in_block_hashes();
-// #endif
+	
+#if defined(PER_BLOCK_CHECKPOINT)
+    load_compiled_in_block_hashes();
+#endif
 
   MINFO("Blockchain initialized. last block: " << m_db->height() - 1 << ", " << epee::misc_utils::get_time_interval_string(timestamp_diff) << " time ago, current difficulty: " << get_difficulty_for_next_block());
   m_db->block_txn_stop();
