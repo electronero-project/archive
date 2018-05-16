@@ -156,7 +156,7 @@
 
 #define CRYPTONOTE_RINGDB_DIR                   ".ringdb" // shared-ringdb"
 
-#define DEFAULT_MIXIN                           12     // default & minimum mixin allowed
+#define DEFAULT_MIXIN                           1     // default & minimum mixin allowed
 #define MAX_MIXIN                               100    
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
