@@ -80,10 +80,10 @@ typedef cryptonote::simple_wallet sw;
 
 #define EXTENDED_LOGS_FILE "wallet_details.log"
 
-#define DEFAULT_MIX 12
-#define DEFAULT_MIXIN 12
+#define DEFAULT_MIX 1
+#define DEFAULT_MIXIN 1
 #define MAX_MIXIN 100
-#define MIN_RING_SIZE 12 // Used to inform user about min ring size -- does not track actual protocol
+#define MIN_RING_SIZE 1 // Used to inform user about min ring size -- does not track actual protocol
 
 #define OUTPUT_EXPORT_FILE_MAGIC "Monero output export\003"
 
