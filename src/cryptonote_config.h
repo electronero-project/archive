@@ -132,6 +132,7 @@
 #define ALLOW_DEBUG_COMMANDS
 
 #define CRYPTONOTE_NAME                         "electronero"
+#define CRYPTONOTE_RINGDB_DIR                   ".nero-ringdb" // shared-ringdb"
 #define CRYPTONOTE_POOLDATA_FILENAME            "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME      "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME "lock.mdb"
@@ -153,12 +154,10 @@
 
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
-#define HF_VERSION_ENFORCE_RCT                  9
+#define HF_VERSION_ENABLE_RCT                   9
+#define HF_VERSION_ENFORCE_RCT                  10
 
-#define CRYPTONOTE_RINGDB_DIR                   ".ringdb" // shared-ringdb"
-
-#define DEFAULT_MIXIN                           12 // default &
-
+#define DEFAULT_MIXIN                           12 // default 
 #define MIN_MIXIN                               1 //  minimum mixin allowed
 #define MAX_MIXIN                               100    
 
