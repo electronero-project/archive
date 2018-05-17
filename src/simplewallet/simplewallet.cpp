@@ -4763,7 +4763,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     {
       fake_outs_count = m_wallet->default_mixin();
       if (fake_outs_count == 0)
-        fake_outs_count = DEFAULT_MIX;
+        fake_outs_count = MIN_MIXIN;
     }
     else if (ring_size == 0)
     {
