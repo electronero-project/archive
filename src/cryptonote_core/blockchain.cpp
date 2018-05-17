@@ -2640,21 +2640,6 @@ bool Blockchain::check_tx_inputs(transaction& tx, tx_verification_context &tvc, 
       }
     }
 
-    if (mixin < min_mixin)
-    {
-      if (n_unmixable == 0)
-      {
-        MERROR_VER("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and no unmixable inputs");
-        tvc.m_low_mixin = true;
-        return false;
-      }
-      if (n_mixable > 1)
-      {
-        MERROR_VER("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and more than one mixable input with unmixable inputs");
-        tvc.m_low_mixin = true;
-        return false;
-      }
-    }
     if (mixin > max_mixin)
     {
       LOG_PRINT_L1("Tx " << get_transaction_hash(tx) << " has too high mixin (" << mixin << "), max mixin = " << max_mixin);
