@@ -150,15 +150,16 @@
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
 
 #define HF_VERSION_DYNAMIC_FEE                  10
-#define HF_VERSION_ENFORCE_RCT                  6
+
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
+#define HF_VERSION_ENFORCE_RCT                  9
 
 #define CRYPTONOTE_RINGDB_DIR                   ".ringdb" // shared-ringdb"
 
-#define DEFAULT_MIXIN                           0     // default & minimum mixin allowed
+#define DEFAULT_MIXIN                           12 // default &
 
-#define MIN_MIXIN                               1 
+#define MIN_MIXIN                               1 //  minimum mixin allowed
 #define MAX_MIXIN                               100    
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
