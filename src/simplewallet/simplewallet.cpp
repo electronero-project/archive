@@ -80,7 +80,7 @@ typedef cryptonote::simple_wallet sw;
 
 #define EXTENDED_LOGS_FILE "wallet_details.log"
 
-#define DEFAULT_MIX 1
+
 
 #define MAX_MIXIN 100
 #define MIN_RING_SIZE 0 // Used to inform user about min ring size -- does not track actual protocol
@@ -1607,7 +1607,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
     fail_msg_writer() << tr("wallet is watch-only and cannot transfer");
     return true;
   }
-  std::string failed_msg = (boost::format(tr("mixin must be an integer >= %s and <= %s")) % DEFAULT_MIXIN % MAX_MIXIN).str();
+  std::string failed_msg = (boost::format(tr("mixin must be an integer >= %s and <= %s")) % MIN_MIXIN % MAX_MIXIN).str();
   try
   {
     if (strchr(args[1].c_str(), '-'))
@@ -4276,10 +4276,10 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
     }
     else
     {
-      if (transfer_type != TransferOriginal && (fake_outs_count < DEFAULT_MIX || fake_outs_count > MAX_MIXIN))
+      if (transfer_type != TransferOriginal && (fake_outs_count < MIN_MIXIN || fake_outs_count > MAX_MIXIN))
 			{
 				std::stringstream prompt;
-        if (fake_outs_count < DEFAULT_MIX){
+        if (fake_outs_count < MIN_MIXIN){
           prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
         }
         else{
