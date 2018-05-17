@@ -563,7 +563,7 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
   // txnFee
   size += 4;
 
-  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin+1) * n_inputs + 32 * n_outputs) << " saved)");
+  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin+1) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin) * n_inputs + 32 * n_outputs) << " saved)");
   return size;
 }
 
@@ -5254,17 +5254,17 @@ int wallet2::get_fee_algorithm() const
 //------------------------------------------------------------------------------------------------------------------------------
 uint64_t wallet2::adjust_mixin(uint64_t mixin) const
 {
-  if (mixin < 19 && use_fork_rules(8, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 8, using 20");
-    mixin = 19;
+  if (mixin > 100 && use_fork_rules(8, 10)) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 8, using 100");
+    mixin = 99;
   }
-  else if (mixin < 11 && use_fork_rules(7, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 7, using 12");
-    mixin = 11;
+  else if (mixin > 100 && use_fork_rules(7, 10)) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 7, using 100");
+    mixin = 99;
   }
-  else if (mixin < 2 && use_fork_rules(2, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 2, using 3");
-    mixin = 2;
+  else if (mixin < 1) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too low, using 1");
+    mixin = 0;
   }
   return mixin;
 }
@@ -8084,15 +8084,13 @@ const wallet2::transfer_details &wallet2::get_transfer_details(size_t idx) const
 //----------------------------------------------------------------------------------------------------
 std::vector<size_t> wallet2::select_available_unmixable_outputs(bool trusted_daemon)
 {
-  // request all outputs with less than 3 instances
-  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 increases min mixin from 2 to DEFAULT_MIXIN
+  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 min mixin from 2 to DEFAULT_MIXIN
   return select_available_outputs_from_histogram(min_mixin + 1, false, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
 std::vector<size_t> wallet2::select_available_mixable_outputs(bool trusted_daemon)
 {
-  // request all outputs with at least 3 instances, so we can use mixin 2 with
-  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 increases min mixin from 2 to DEFAULT_MIXIN
+  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 min mixin from 2 to DEFAULT_MIXIN
   return select_available_outputs_from_histogram(min_mixin + 1, true, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
