@@ -80,8 +80,8 @@ typedef cryptonote::simple_wallet sw;
 
 #define EXTENDED_LOGS_FILE "wallet_details.log"
 
-#define DEFAULT_MIX 0
-#define DEFAULT_MIXIN 0
+#define DEFAULT_MIX 1
+
 #define MAX_MIXIN 100
 #define MIN_RING_SIZE 0 // Used to inform user about min ring size -- does not track actual protocol
 
@@ -1617,7 +1617,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
     }
     uint32_t mixin = boost::lexical_cast<uint32_t>(args[1]);
     auto ring_size = mixin;
-    if (mixin != 0 && (mixin < DEFAULT_MIXIN || mixin > MAX_MIXIN))
+    if (mixin != 0 && mixin > MAX_MIXIN))
     {
       fail_msg_writer() << failed_msg;
       return true;
@@ -1628,7 +1628,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
     const auto pwd_container = get_and_verify_password();
     if (pwd_container)
     {
-      m_wallet->default_mixin(ring_size);
+      m_wallet->default_mixin(mixin);
       m_wallet->rewrite(m_wallet_file, pwd_container->password());
     }
     return true;
@@ -1757,11 +1757,9 @@ bool simple_wallet::set_unit(const std::vector<std::string> &args/* = std::vecto
 
   if (unit == "electronero")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
-  else if (unit == "ghost")
-    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 3;
-  else if (unit == "vanta")
-    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 6;
-  else if (unit == "krypton")
+  else if (unit == "ecent")
+    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 1;
+  else if (unit == "edust")
     decimal_point = 0;
   else
   {
@@ -4278,10 +4276,10 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
     }
     else
     {
-      if (transfer_type != TransferOriginal && (fake_outs_count < DEFAULT_MIXIN || fake_outs_count > MAX_MIXIN))
+      if (transfer_type != TransferOriginal && (fake_outs_count < DEFAULT_MIX || fake_outs_count > MAX_MIXIN))
 			{
 				std::stringstream prompt;
-        if (fake_outs_count < DEFAULT_MIXIN){
+        if (fake_outs_count < DEFAULT_MIX){
           prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
         }
         else{
