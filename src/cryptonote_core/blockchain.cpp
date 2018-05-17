@@ -2639,7 +2639,10 @@ bool Blockchain::check_tx_inputs(transaction& tx, tx_verification_context &tvc, 
           mixin = in_to_key.key_offsets.size() - 1;
       }
     }
-
+    if (mixin < max_mixin)
+    {
+	tvc.m_low_mixin = false;
+    }
     if (mixin > max_mixin)
     {
       LOG_PRINT_L1("Tx " << get_transaction_hash(tx) << " has too high mixin (" << mixin << "), max mixin = " << max_mixin);
