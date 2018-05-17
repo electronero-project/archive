@@ -1623,12 +1623,12 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
       return true;
     }
     if (mixin == 0 || ring_size == 0)
-      mixin = DEFAULT_MIXIN;
+      mixin = MIN_MIXIN;
  
     const auto pwd_container = get_and_verify_password();
     if (pwd_container)
     {
-      m_wallet->default_mixin(mixin);
+      m_wallet->default_mixin(ring_size);
       m_wallet->rewrite(m_wallet_file, pwd_container->password());
     }
     return true;
