@@ -1617,7 +1617,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
     }
     uint32_t mixin = boost::lexical_cast<uint32_t>(args[1]);
     auto ring_size = mixin;
-    if (mixin != 0 && mixin > MAX_MIXIN))
+    if (mixin != 0 && mixin > MAX_MIXIN)
     {
       fail_msg_writer() << failed_msg;
       return true;
