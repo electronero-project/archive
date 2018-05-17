@@ -8084,14 +8084,14 @@ const wallet2::transfer_details &wallet2::get_transfer_details(size_t idx) const
 //----------------------------------------------------------------------------------------------------
 std::vector<size_t> wallet2::select_available_unmixable_outputs(bool trusted_daemon)
 {
-  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 min mixin from 2 to DEFAULT_MIXIN
-  return select_available_outputs_from_histogram(min_mixin + 1, false, true, true, trusted_daemon);
+  const size_t min_mixin = use_fork_rules(7, 10) ? MIN_MIXIN : 2; // v7 min mixin from 2 to DEFAULT_MIXIN
+  return select_available_outputs_from_histogram(min_mixin, false, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
 std::vector<size_t> wallet2::select_available_mixable_outputs(bool trusted_daemon)
 {
-  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 min mixin from 2 to DEFAULT_MIXIN
-  return select_available_outputs_from_histogram(min_mixin + 1, true, true, true, trusted_daemon);
+  const size_t min_mixin = use_fork_rules(7, 10) ? MIN_MIXIN : 2; // v7 min mixin from 2 to DEFAULT_MIXIN
+  return select_available_outputs_from_histogram(min_mixin, true, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
 std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bool trusted_daemon)
