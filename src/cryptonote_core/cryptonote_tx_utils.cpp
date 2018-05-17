@@ -156,7 +156,7 @@ namespace cryptonote
 
     CHECK_AND_ASSERT_MES(summary_amounts == block_reward, false, "Failed to construct miner tx, summary_amounts = " << summary_amounts << " not equal block_reward = " << block_reward);
 
-    if (hard_fork_version == HF_VERSION_MIN_MIXIN_4 && hard_fork_version >= HF_VERSION_ENABLE_RCT)
+    if (hard_fork_version == HF_VERSION_MIN_MIXIN_4 || hard_fork_version >= HF_VERSION_ENABLE_RCT)
       tx.version = 2;
     else
       tx.version = 1;
