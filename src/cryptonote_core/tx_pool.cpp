@@ -193,7 +193,7 @@ namespace cryptonote
     BOOST_FOREACH(const auto& in, tx.vin)
     {
       CHECKED_GET_SPECIFIC_VARIANT(in, const txin_to_key, txin, false);
-      if(txin.key_offsets.size() - 1 < DEFAULT_MIXIN){
+      if(txin.key_offsets.size() - 1 < MIN_MIXIN){
         mixin_too_low = true;
         break;
       }
