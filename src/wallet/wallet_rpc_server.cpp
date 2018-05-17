@@ -785,7 +785,7 @@ namespace tools
     try
     {
       uint64_t mixin = req.ring_size;
-      if (mixin < DEFAULT_MIXIN){
+      if (mixin < MIN_MIXIN){
         LOG_PRINT_L1("Requested mixin " << req.ring_size << " too low, using " << DEFAULT_MIXIN << " if this doesnt seem right, perhaps we should be using " << req.mixin);
         mixin = DEFAULT_MIXIN;
       }
@@ -845,7 +845,7 @@ namespace tools
     try
     {
       uint64_t mixin = req.ring_size;
-      if (mixin < DEFAULT_MIXIN){
+      if (mixin < MIN_MIXIN){
         LOG_PRINT_L1("Requested mixin " << req.ring_size << " too low, using " << DEFAULT_MIXIN << " if this doesnt seem right, perhaps we should be using " << req.mixin);
         mixin = DEFAULT_MIXIN;
       }
