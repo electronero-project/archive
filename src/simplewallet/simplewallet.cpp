@@ -1622,13 +1622,11 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
       fail_msg_writer() << failed_msg;
       return true;
     }
-    if (mixin == 0 || ring_size == 0)
-      mixin = MIN_MIXIN;
- 
+
     const auto pwd_container = get_and_verify_password();
     if (pwd_container)
     {
-      m_wallet->default_mixin(ring_size - 1);
+      m_wallet->default_mixin(ring_size > 0 ? ring_size - 1 : 0);
       m_wallet->rewrite(m_wallet_file, pwd_container->password());
     }
     return true;
@@ -4757,44 +4755,33 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     local_args.erase(local_args.begin());
 
   priority = m_wallet->adjust_priority(priority);
-  size_t fake_outs_count;
+
+  size_t fake_outs_count = 0;
   if(local_args.size() > 0) {
-	  size_t ring_size;
-		if (!epee::string_tools::get_xtype_from_string(fake_outs_count, local_args[0]))
-    {      
-			message_writer() << boost::format(tr("** No mixin value specified, default mixin %s will be used for this transaction.")) % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
-			fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
+    size_t ring_size;
+    if(!epee::string_tools::get_xtype_from_string(ring_size, local_args[0]))
+    {
+      fake_outs_count = m_wallet->default_mixin();
+      if (fake_outs_count == 0)
+        fake_outs_count = DEFAULT_MIX;
+    }
+    else if (ring_size == 0)
+    {
+      fail_msg_writer() << tr("Ring size must not be 0");
+      return true;
     }
     else
     {
-      if (fake_outs_count < MIN_MIXIN || fake_outs_count > MAX_MIXIN)
-			{
-				std::stringstream prompt;
-        if (fake_outs_count < MIN_MIXIN){
-          prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
-        }
-        else{
-          fail_msg_writer() << boost::format(tr("Given mixin value %s is too high. Max mixin value allowed is %s. Please resend tx with lower mixin.")) % fake_outs_count % MAX_MIXIN;
-          return true;
-        }
-
-				std::string accepted = input_line(prompt.str());
-				if (std::cin.eof())
-					return true;
-
-				if (!command_line::is_yes(accepted))
-				{
-					fail_msg_writer() << tr("transaction cancelled.");
-					return true;
-				}
-				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
-				
-			}
-
-			local_args.erase(local_args.begin());
+      fake_outs_count = ring_size - 1;
+      local_args.erase(local_args.begin());
     }
-
-	}
+  }
+  uint64_t adjusted_fake_outs_count = m_wallet->adjust_mixin(fake_outs_count);
+  if (adjusted_fake_outs_count > fake_outs_count)
+  {
+    fail_msg_writer() << (boost::format(tr("ring size %u is too small, minimum is %u")) % (fake_outs_count+1) % (adjusted_fake_outs_count+1)).str();
+    return true;
+  }
 
   std::vector<uint8_t> extra;
   bool payment_id_seen = false;
@@ -4987,10 +4974,10 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
 
   priority = m_wallet->adjust_priority(priority);
 
-  size_t fake_outs_count;
+  size_t fake_outs_count = 0;
   if(local_args.size() > 0) {
 	size_t ring_size;
-    if(!epee::string_tools::get_xtype_from_string(fake_outs_count, local_args[0]))
+    if(!epee::string_tools::get_xtype_from_string(ring_size, local_args[0]))
     {
       message_writer() << boost::format(tr("** No mixin value specified, default mixin %s will be used for this transaction.")) % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
 			fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
@@ -5248,7 +5235,7 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
   local_args.push_back(amount_str);
   if (!payment_id_str.empty())
     local_args.push_back(payment_id_str);
-  message_writer() << tr("Donating ") << amount_str << " to The Electronero Project (donate.electronero.io or "<< MONERO_DONATION_ADDR <<").";
+  message_writer() << tr("Donating ") << amount_str << " to The Electronero Project (donate.electronero.org or "<< MONERO_DONATION_ADDR <<").";
   transfer_new(local_args);
   return true;
 }
