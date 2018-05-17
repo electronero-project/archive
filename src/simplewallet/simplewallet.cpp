@@ -1622,7 +1622,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
       fail_msg_writer() << failed_msg;
       return true;
     }
-    if (mixin == 0)
+    if (mixin == 0 || ring_size == 0)
       mixin = DEFAULT_MIXIN;
  
     const auto pwd_container = get_and_verify_password();
@@ -4767,10 +4767,10 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     }
     else
     {
-      if (fake_outs_count < DEFAULT_MIXIN || fake_outs_count > MAX_MIXIN)
+      if (fake_outs_count < MIN_MIXIN || fake_outs_count > MAX_MIXIN)
 			{
 				std::stringstream prompt;
-        if (fake_outs_count < DEFAULT_MIXIN){
+        if (fake_outs_count < MIN_MIXIN){
           prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
         }
         else{
@@ -5003,7 +5003,7 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
         return true;
       }
 
-      if (fake_outs_count < DEFAULT_MIXIN)
+      if (fake_outs_count < MIN_MIXIN)
 			{
 				std::stringstream prompt;
 				prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
