@@ -8097,9 +8097,9 @@ std::vector<size_t> wallet2::select_available_mixable_outputs(bool trusted_daemo
 std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bool trusted_daemon)
 {
   // From hard fork 1, we don't consider small amounts to be dust anymore
-  const bool hf1_rules = use_fork_rules(2, 10); // first hard fork has version 2
-  // tx_dust_policy dust_policy(hf1_rules ? 0 : ::config::DEFAULT_DUST_THRESHOLD);
-  tx_dust_policy dust_policy(0);
+  const bool hf1_rules = use_fork_rules(HF_VERSION_ENFORCE_RCT, 10); // first hard fork has version 2
+  tx_dust_policy dust_policy(hf1_rules ? 0 : ::config::DEFAULT_DUST_THRESHOLD);
+  //tx_dust_policy dust_policy(0);
 
   const uint64_t fee_per_kb  = get_per_kb_fee();
 
