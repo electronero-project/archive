@@ -4803,6 +4803,12 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     return true;
 
   std::vector<std::string> local_args = args_;
+  
+  uint32_t priority = 0;
+  if (local_args.size() > 0 && parse_priority(local_args[0], priority))
+    local_args.erase(local_args.begin());
+
+  priority = m_wallet->adjust_priority(priority);
 
   size_t fake_outs_count = MIN_MIXIN;
   if (local_args.size() > 0) {
@@ -5068,40 +5074,18 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
 
   priority = m_wallet->adjust_priority(priority);
 
-  size_t fake_outs_count = 0;
+  size_t fake_outs_count;
   if(local_args.size() > 0) {
-	size_t ring_size;
-    if(!epee::string_tools::get_xtype_from_string(ring_size, local_args[0]))
+    size_t ring_size;
+    if(!epee::string_tools::get_xtype_from_string(fake_outs_count, local_args[0]))
     {
-      message_writer() << boost::format(tr("** No mixin value specified, default mixin %s will be used for this transaction.")) % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
-			fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
+      fake_outs_count = m_wallet->default_mixin();
+      if (fake_outs_count == 0)
+        fake_outs_count = MIN_MIXIN;
     }
     else
     {
-      if (fake_outs_count > MAX_MIXIN)
-      {
-        fail_msg_writer() << boost::format(tr("Given mixin value %s is too high. Max mixin value allowed is %s. Please resend tx with lower mixin.")) % fake_outs_count % MAX_MIXIN;
-        return true;
-      }
-
-      if (fake_outs_count < MIN_MIXIN)
-			{
-				std::stringstream prompt;
-				prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
-
-				std::string accepted = input_line(prompt.str());
-				if (std::cin.eof())
-					return true;
-
-				if (!command_line::is_yes(accepted))
-				{
-					fail_msg_writer() << tr("transaction cancelled.");
-					return true;
-				}
-
-				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
-			}
-
+      fake_outs_count = ring_size - 1;
       local_args.erase(local_args.begin());
     }
   }
@@ -5245,7 +5229,7 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
     }
     else if (m_wallet->watch_only())
     {
-      bool r = m_wallet->save_tx(ptx_vector, "unsigned_electronero_tx");
+      bool r = m_wallet->save_tx(ptx_vector, "unsigned_monero_tx");
       if (!r)
       {
         fail_msg_writer() << tr("Failed to write transaction(s) to file");
