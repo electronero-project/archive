@@ -4674,7 +4674,7 @@ bool simple_wallet::sweep_unmixable(const std::vector<std::string> &args_)
         print_money(total_unmixable) %
         print_money(total_fee)).str();
     }
-    std::string accepted = command_line::input_line(prompt_str);
+    std::string accepted = input_line(prompt_str);
     if (std::cin.eof())
       return true;
     if (!command_line::is_yes(accepted))
@@ -4856,7 +4856,8 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
   bool has_payment_id;
   crypto::hash8 new_payment_id;
   cryptonote::account_public_address address;
-  if (!cryptonote::get_account_address_from_str_or_url(address, has_payment_id, new_payment_id, m_wallet->testnet(), local_args[0], oa_prompter))
+  cryptonote::address_parse_info info;
+  if (!cryptonote::get_account_address_from_str_or_url(info, m_wallet->nettype(), local_args[0], oa_prompter))
   {
     fail_msg_writer() << tr("failed to parse address");
     return true;
@@ -4884,7 +4885,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
   // prompt is there is no payment id and confirmation is required
   if (!payment_id_seen && m_wallet->confirm_missing_payment_id())
   {
-     std::string accepted = command_line::input_line(tr("No payment id is included with this transaction. Is this okay?  (Y/Yes/N/No): "));
+     std::string accepted = input_line(tr("No payment id is included with this transaction. Is this okay?  (Y/Yes/N/No): "));
      if (std::cin.eof())
        return true;
      if (!command_line::is_yes(accepted))
@@ -4900,14 +4901,14 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
   try
   {
     // figure out what tx will be necessary
-    auto ptx_vector = m_wallet->create_transactions_all(below, address, fake_outs_count, 0 /* unlock_time */, 0 /* unused fee arg*/, extra, m_trusted_daemon);
+    auto ptx_vector = m_wallet->create_transactions_all(below, info.address, info.is_subaddress, fake_outs_count, 0 /* unlock_time */, priority, extra, m_current_subaddress_account, subaddr_indices, m_trusted_daemon);
 
     if (ptx_vector.empty())
     {
       fail_msg_writer() << tr("No outputs found, or daemon is not ready");
       return true;
     }
-
+    
     // give user total and fee, and prompt to confirm
     uint64_t total_fee = 0, total_sent = 0;
     for (size_t n = 0; n < ptx_vector.size(); ++n)
@@ -4931,7 +4932,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
         print_money(total_sent) %
         print_money(total_fee);
     }
-    std::string accepted = command_line::input_line(prompt.str());
+    std::string accepted = input_line(prompt.str());
     if (std::cin.eof())
       return true;
     if (!command_line::is_yes(accepted))
