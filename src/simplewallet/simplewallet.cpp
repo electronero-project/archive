@@ -4803,6 +4803,14 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     return true;
 
   std::vector<std::string> local_args = args_;
+
+  std::set<uint32_t> subaddr_indices;
+  if (local_args.size() > 0 && local_args[0].substr(0, 6) == "index=")
+  {
+    if (!parse_subaddress_indices(local_args[0], subaddr_indices))
+      return true;
+    local_args.erase(local_args.begin());
+  }
   
   uint32_t priority = 0;
   if (local_args.size() > 0 && parse_priority(local_args[0], priority))
@@ -4820,10 +4828,9 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
 
   std::vector<uint8_t> extra;
   bool payment_id_seen = false;
-  if (2 == local_args.size())
+  if (2 >= local_args.size())
   {
     std::string payment_id_str = local_args.back();
-    local_args.pop_back();
 
     crypto::hash payment_id;
     bool r = tools::wallet2::parse_long_payment_id(payment_id_str, payment_id);
@@ -4832,6 +4839,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
       std::string extra_nonce;
       set_payment_id_to_tx_extra_nonce(extra_nonce, payment_id);
       r = add_extra_nonce_to_tx_extra(extra, extra_nonce);
+      payment_id_seen = true;
     }
     else
     {
@@ -4842,26 +4850,19 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
         std::string extra_nonce;
         set_encrypted_payment_id_to_tx_extra_nonce(extra_nonce, payment_id8);
         r = add_extra_nonce_to_tx_extra(extra, extra_nonce);
+        payment_id_seen = true;
       }
     }
 
-    if(!r)
+    if(!r && local_args.size() == 3)
     {
       fail_msg_writer() << tr("payment id has invalid format, expected 16 or 64 character hex string: ") << payment_id_str;
       return true;
     }
-    payment_id_seen = true;
+    if (payment_id_seen)
+      local_args.pop_back();
   }
 
-  if (local_args.size() == 0)
-  {
-    fail_msg_writer() << tr("No address given");
-    return true;
-  }
-
-  bool has_payment_id;
-  crypto::hash8 new_payment_id;
-  cryptonote::account_public_address address;
   cryptonote::address_parse_info info;
   if (!cryptonote::get_account_address_from_str_or_url(info, m_wallet->nettype(), local_args[0], oa_prompter))
   {
@@ -4869,7 +4870,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     return true;
   }
 
-  if (has_payment_id)
+  if (info.has_payment_id)
   {
     if (payment_id_seen)
     {
@@ -4878,7 +4879,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     }
 
     std::string extra_nonce;
-    set_encrypted_payment_id_to_tx_extra_nonce(extra_nonce, new_payment_id);
+    set_encrypted_payment_id_to_tx_extra_nonce(extra_nonce, info.payment_id);
     bool r = add_extra_nonce_to_tx_extra(extra, extra_nonce);
     if(!r)
     {
@@ -4904,6 +4905,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
 
   LOCK_IDLE_SCOPE();
 
+
   try
   {
     // figure out what tx will be necessary
@@ -4925,7 +4927,18 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     }
 
     std::ostringstream prompt;
-    if (!print_ring_members(ptx_vector, prompt))
+    for (size_t n = 0; n < ptx_vector.size(); ++n)
+    {
+      prompt << tr("\nTransaction ") << (n + 1) << "/" << ptx_vector.size() << ":\n";
+      subaddr_indices.clear();
+      for (uint32_t i : ptx_vector[n].construction_data.subaddr_indices)
+        subaddr_indices.insert(i);
+      for (uint32_t i : subaddr_indices)
+        prompt << boost::format(tr("Spending from address index %d\n")) % i;
+      if (subaddr_indices.size() > 1)
+        prompt << tr("WARNING: Outputs of multiple addresses are being used together, which might potentially compromise your privacy.\n");
+    }
+    if (m_wallet->print_ring_members() && !print_ring_members(ptx_vector, prompt))
       return true;
     if (ptx_vector.size() > 1) {
       prompt << boost::format(tr("Sweeping %s in %llu transactions for a total fee of %s.  Is this okay?  (Y/Yes/N/No): ")) %
@@ -4934,7 +4947,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
         print_money(total_fee);
     }
     else {
-      prompt << boost::format(tr("Sweeping %s for a total fee of %s.  Is this okay?  (Y/Yes/N/No)")) %
+      prompt << boost::format(tr("Sweeping %s for a total fee of %s.  Is this okay?  (Y/Yes/N/No): ")) %
         print_money(total_sent) %
         print_money(total_fee);
     }
