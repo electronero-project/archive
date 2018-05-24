@@ -80,7 +80,7 @@ typedef cryptonote::simple_wallet sw;
 
 #define EXTENDED_LOGS_FILE "wallet_details.log"
 
-#define MIN_RING_SIZE 12 // Used to inform user about min ring size -- does not track actual protocol
+#define MIN_RING_SIZE 1 // Used to inform user about min ring size -- does not track actual protocol
 
 #define OUTPUT_EXPORT_FILE_MAGIC "Monero output export\003"
 
@@ -1167,7 +1167,10 @@ bool simple_wallet::submit_multisig(const std::vector<std::string> &args)
   if (m_wallet->ask_password() && !get_and_verify_password()) { return true; }
 
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   std::string filename = args[0];
   try
@@ -3593,7 +3596,10 @@ bool simple_wallet::start_mining(const std::vector<std::string>& args)
   }
 
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   if (!m_wallet)
   {
@@ -3648,7 +3654,10 @@ bool simple_wallet::start_mining(const std::vector<std::string>& args)
 bool simple_wallet::stop_mining(const std::vector<std::string>& args)
 {
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   if (!m_wallet)
   {
@@ -3706,7 +3715,10 @@ bool simple_wallet::set_daemon(const std::vector<std::string>& args)
 bool simple_wallet::save_bc(const std::vector<std::string>& args)
 {
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   if (!m_wallet)
   {
@@ -3768,7 +3780,10 @@ void simple_wallet::on_skip_transaction(uint64_t height, const crypto::hash &txi
 bool simple_wallet::refresh_main(uint64_t start_height, bool reset, bool is_init)
 {
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   LOCK_IDLE_SCOPE();
 
@@ -4069,7 +4084,10 @@ uint64_t simple_wallet::get_daemon_blockchain_height(std::string& err)
 bool simple_wallet::show_blockchain_height(const std::vector<std::string>& args)
 {
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   std::string err;
   uint64_t bc_height = get_daemon_blockchain_height(err);
@@ -4089,7 +4107,10 @@ bool simple_wallet::rescan_spent(const std::vector<std::string> &args)
   }
 
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   try
   {
@@ -4245,7 +4266,10 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
 //  "transfer [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <address> <amount> [<payment_id>]"
   if (m_wallet->ask_password() && !get_and_verify_password()) { return true; }
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   LOCK_IDLE_SCOPE();
 
@@ -4640,7 +4664,10 @@ bool simple_wallet::sweep_unmixable(const std::vector<std::string> &args_)
 {
   if (m_wallet->ask_password() && !get_and_verify_password()) { return true; }
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   LOCK_IDLE_SCOPE();
   try
@@ -4801,7 +4828,10 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
 {
   if (m_wallet->ask_password() && !get_and_verify_password()) { return true; }
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
     std::vector<std::string> local_args = args_;
 
@@ -5081,7 +5111,10 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
 {
   if (m_wallet->ask_password() && !get_and_verify_password()) { return true; }
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   std::vector<std::string> local_args = args_;
 
@@ -5554,7 +5587,10 @@ bool simple_wallet::submit_transfer(const std::vector<std::string> &args_)
     return true;
   }
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   try
   {
@@ -5678,7 +5714,10 @@ bool simple_wallet::check_tx_key(const std::vector<std::string> &args_)
   }
 
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   if (!m_wallet)
   {
@@ -5764,7 +5803,10 @@ bool simple_wallet::check_tx_proof(const std::vector<std::string> &args)
   }
 
   if (!try_connect_to_daemon())
+  {
+    fail_msg_writer() << tr("Cannot connect to daemon");
     return true;
+  }
 
   // parse txid
   crypto::hash txid;
