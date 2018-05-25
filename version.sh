@@ -1,0 +1,1 @@
+GUI_MONERO_VERSION="b9b7c9f"
